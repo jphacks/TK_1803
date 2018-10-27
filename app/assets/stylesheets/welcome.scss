@@ -1294,7 +1294,7 @@ table.alt tbody tr td {
   display: none;
 }
 
-#header.hide, #header.preview {
+#header.porahide, #header.preview {
   -moz-transition: background 0.2s ease-in-out, height 1s ease-in-out;
   -webkit-transition: background 0.2s ease-in-out, height 1s ease-in-out;
   -ms-transition: background 0.2s ease-in-out, height 1s ease-in-out;
@@ -1303,29 +1303,29 @@ table.alt tbody tr td {
   height: 0;
 }
 
-#header.hide .inner, #header.preview .inner {
+#header.porahide .inner, #header.preview .inner {
   height: 6em;
   width: 6em;
   padding: 2em;
 }
 
-#header.hide .inner .content, #header.preview .inner .content {
+#header.porahide .inner .content, #header.preview .inner .content {
   opacity: 0;
 }
 
-#header.hide .inner .content h1, #header.preview .inner .content h1 {
+#header.porahide .inner .content h1, #header.preview .inner .content h1 {
   display: none;
 }
 
-#header.hide .inner .content h2, #header.preview .inner .content h2 {
+#header.porahide .inner .content h2, #header.preview .inner .content h2 {
   display: none;
 }
 
-#header.hide .button.big, #header.preview .button.big {
+#header.porahide .button.big, #header.preview .button.big {
   display: none;
 }
 
-#header.hide .button.hidden, #header.preview .button.hidden {
+#header.porahide .button.hidden, #header.preview .button.hidden {
   text-decoration: none;
   padding-top: 1.5em;
   padding-left: 0;
@@ -1334,7 +1334,7 @@ table.alt tbody tr td {
   display: inline-block;
 }
 
-#header.hide .button.hidden:before, #header.preview .button.hidden:before {
+#header.porahide .button.hidden:before, #header.preview .button.hidden:before {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: FontAwesome;
@@ -1343,13 +1343,13 @@ table.alt tbody tr td {
   text-transform: none !important;
 }
 
-#header.hide .button.hidden:before, #header.preview .button.hidden:before {
+#header.porahide .button.hidden:before, #header.preview .button.hidden:before {
   content: '\f015';
   color: #FFF;
   font-size: 1.5em;
 }
 
-#header.hide .button.hidden span, #header.preview .button.hidden span {
+#header.porahide .button.hidden span, #header.preview .button.hidden span {
   display: none;
 }
 
