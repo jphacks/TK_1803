@@ -4,6 +4,7 @@
 
 //@import url(fonts/font-awesome.min.css);
 @import url(https://fonts.googleapis.com/css?family=Pattaya|Work+Sans:400,200,300);
+
 /*
  Radius by TEMPLATED
  templated.co @templatedco
@@ -1193,7 +1194,7 @@ table.alt tbody tr td {
 
 /* Header */
 
-#header {
+#welcomeHeader {
   -moz-transition: background 1s ease-in-out, height 0.2s ease-in-out;
   -webkit-transition: background 1s ease-in-out, height 0.2s ease-in-out;
   -ms-transition: background 1s ease-in-out, height 0.2s ease-in-out;
@@ -1213,7 +1214,7 @@ table.alt tbody tr td {
   display: -ms-flexbox;
   -ms-flex-align: center;
   -ms-flex-pack: center;
-  background: rgba(254, 254, 254, 0.85);
+  background: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   width: 100%;
@@ -1221,7 +1222,7 @@ table.alt tbody tr td {
   z-index: 10001;
 }
 
-#header .inner {
+#welcomeHeader .inner {
   -moz-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
   -webkit-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
   -ms-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
@@ -1247,15 +1248,15 @@ table.alt tbody tr td {
   -ms-flex-pack: center;
   background: #e74c3c;
   border-radius: 100%;
-  width: 35em;
-  height: 35em;
+  width: 10em;
+  height: 10em;
   padding: 4em;
   text-align: center;
   box-shadow: 0 0 0 1em #FFF;
   cursor: default;
 }
 
-#header .inner .content {
+#welcomeHeader .inner .content {
   -moz-transition: opacity 1s ease-in-out;
   -webkit-transition: opacity 1s ease-in-out;
   -ms-transition: opacity 1s ease-in-out;
@@ -1263,38 +1264,157 @@ table.alt tbody tr td {
   opacity: 1;
 }
 
-#header .inner .content h1 {
-  font-size: 4em;
+#welcomeHeader .inner .content a#closeBtn  h1 {
+  font-size: 1.5em;
   font-family: 'Pattaya', sans-serif;
-  margin: 0 0 .25em 0;
-  color: #fff;
+  margin: 0 0 0 0;
+  display: block;
+  color: #FFF;
 }
 
-#header .inner .content h2 {
+#welcomeHeader .inner .content a#closeBtn h1:before {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none !important;
+  display: block;
+  content: '\f00d';
+  color: #FFF;
+  font-size: 1.5em;
+}
+
+#welcomeHeader .inner .content a#closeBtn  {
+  background: transparent;
+}
+
+#welcomeHeader .inner .content h2 {
   font-size: 1.5em;
   color: #fff;
   margin: 0 0 1em 0;
 }
 
-#header .inner .button {
-  -moz-transition: background 1s ease-in-out;
-  -webkit-transition: background 1s ease-in-out;
-  -ms-transition: background 1s ease-in-out;
-  transition: background 1s ease-in-out;
-  margin: 0;
-  border-radius: 30px;
+#welcomeHeader .inner nav .menu-inner {
+  position: absolute;
+  -moz-transition: opacity 0.2s ease-in-out 0.2s;
+  -webkit-transition: opacity 0.2s ease-in-out 0.2s;
+  -ms-transition: opacity 0.2s ease-in-out 0.2s;
+  transition: opacity 0.2s ease-in-out 0.2s;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -moz-flex-direction: column;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -moz-justify-content: center;
+  -webkit-justify-content: center;
+  -ms-justify-content: center;
+  justify-content: center;
+  -moz-align-items: center;
+  -webkit-align-items: center;
+  -ms-align-items: center;
+  align-items: center;
+  display: -ms-flexbox;
+  -ms-flex-align: center;
+  -ms-flex-pack: center;
+  background: #e74c3c;
+  border-radius: 100%;
+  width: 20em;
+  height: 20em;
+  padding: 4em;
+  text-align: center;
+  box-shadow: 0 0 0 1em #FFF;
+  opacity: 1;
+  cursor: default;
 }
 
-#header .inner .button.hidden {
+#welcomeHeader .inner nav #homeMenu.menu-inner {
+  margin-left: -24em;
+  margin-top: -25em;
+}
+
+#welcomeHeader .inner nav #usersMenu.menu-inner {
+  margin-left: 4em;
+  margin-top: -25em;
+}
+
+#welcomeHeader .inner nav #videosMenu.menu-inner {
+  margin-left: -24em;
+  margin-top: 0em;
+}
+
+#welcomeHeader .inner nav #sessionsMenu.menu-inner {
+  margin-left: 4em;
+  margin-top: 0em;
+}
+
+#welcomeHeader.header-hide .inner nav .menu-inner {
+  -moz-transition: opacity 0s ease-in-out 0s;
+  -webkit-transition: opacity 0s ease-in-out 0s;
+  -ms-transition: opacity 0s ease-in-out 0s;
+  transition: opacity 0s ease-in-out 0s;
+  opacity: 0;
+  margin-top: -100em !important;
+}
+
+#welcomeHeader .inner nav .menu-inner .menu-content a h1 {
+  font-size: 1.5em;
+  font-family: 'Pattaya', sans-serif;
+  margin: 0 0 0 0;
+  display: block;
+  color: #FFF;
+}
+
+#welcomeHeader .inner nav .menu-inner .menu-content a h1:before {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none !important;
+  display: block;
+  color: #FFF;
+  font-size: 1.5em;
+}
+
+#welcomeHeader .inner nav .menu-inner .menu-content a#homeBtn h1:before {
+  content: '\f015';
+}
+
+#welcomeHeader .inner nav .menu-inner .menu-content a#usersBtn h1:before {
+  content: '\f0c0';
+}
+
+#welcomeHeader .inner nav .menu-inner .menu-content a#videosBtn h1:before {
+  content: '\f03d';
+}
+
+#welcomeHeader .inner nav .menu-inner .menu-content a#sessionsBtn h1:before {
+  content: '\f001';
+}
+
+#welcomeHeader .inner nav .menu-inner .menu-content a {
+  text-decoration: none;
+  background: transparent;
+}
+
+#welcomeHeader .inner .button {
+  margin: 0;
+}
+
+#welcomeHeader .inner .button.header-hidden {
   display: none;
   cursor: pointer;
 }
 
-#header .inner.hidden {
+#welcomeHeader .inner.header-hidden {
   display: none;
 }
 
-#header.hide, #header.preview {
+#welcomeHeader.header-hide, #welcomeHeader.preview {
   -moz-transition: background 0.2s ease-in-out, height 1s ease-in-out;
   -webkit-transition: background 0.2s ease-in-out, height 1s ease-in-out;
   -ms-transition: background 0.2s ease-in-out, height 1s ease-in-out;
@@ -1303,29 +1423,29 @@ table.alt tbody tr td {
   height: 0;
 }
 
-#header.hide .inner, #header.preview .inner {
+#welcomeHeader.header-hide .inner, #welcomeHeader.preview .inner {
   height: 6em;
   width: 6em;
   padding: 2em;
 }
 
-#header.hide .inner .content, #header.preview .inner .content {
+#welcomeHeader.header-hide .inner .content, #welcomeHeader.preview .inner .content {
   opacity: 0;
 }
 
-#header.hide .inner .content h1, #header.preview .inner .content h1 {
+#welcomeHeader.header-hide .inner .content h1, #welcomeHeader.preview .inner .content h1 {
   display: none;
 }
 
-#header.hide .inner .content h2, #header.preview .inner .content h2 {
+#welcomeHeader.header-hide .inner .content h2, #welcomeHeader.preview .inner .content h2 {
   display: none;
 }
 
-#header.hide .button.big, #header.preview .button.big {
+#welcomeHeader.header-hide .button.big, #welcomeHeader.preview .button.big {
   display: none;
 }
 
-#header.hide .button.hidden, #header.preview .button.hidden {
+#welcomeHeader.header-hide .button.header-hidden, #welcomeHeader.preview .button.header-hidden {
   text-decoration: none;
   padding-top: 1.5em;
   padding-left: 0;
@@ -1334,7 +1454,7 @@ table.alt tbody tr td {
   display: inline-block;
 }
 
-#header.hide .button.hidden:before, #header.preview .button.hidden:before {
+#welcomeHeader.header-hide .button.header-hidden i, #welcomeHeader.preview .button.header-hidden i {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-family: FontAwesome;
@@ -1343,19 +1463,19 @@ table.alt tbody tr td {
   text-transform: none !important;
 }
 
-#header.hide .button.hidden:before, #header.preview .button.hidden:before {
-  content: '\f015';
+#welcomeHeader.header-hide .button.header-hidden i, #welcomeHeader.preview .button.header-hidden i {
+  content: '\f0c9';
   color: #FFF;
   font-size: 1.5em;
 }
 
-#header.hide .button.hidden span, #header.preview .button.hidden span {
+#welcomeHeader.header-hide .button.header-hidden span, #welcomeHeader.preview .button.header-hidden span {
   display: none;
 }
 
 @media screen and (max-width: 736px) {
 
-  #header .inner {
+  #welcomeHeader .inner {
     width: 25em;
     height: 25em;
     font-size: .75em;
@@ -1366,14 +1486,14 @@ table.alt tbody tr td {
 
 @media screen and (max-width: 480px) {
 
-  #header .inner {
+  #welcomeHeader .inner {
     width: 26em;
     height: 26em;
     padding: 2em;
     font-size: .65em;
   }
 
-  #header .inner .button {
+  #welcomeHeader .inner .button {
     padding-left: 2em;
     padding-right: 2em;
   }

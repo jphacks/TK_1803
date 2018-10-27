@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <span class="oi oi-person"></span>
   <%= @user.name %>
 </p>
 
@@ -17,7 +17,7 @@
 
 
 <div class="row">
-  
+
 </div>
 
 <% i = 0 %>
@@ -28,25 +28,26 @@
 
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <iframe width="420" height="265" src="<%=video.url%>" frameborder="0" allowfullscreen></iframe>
+      <iframe width="100%" height="265" src="<%=video.url.sub(/watch\?v=/, "embed/")%>" frameborder="0" allowfullscreen></iframe>
 
       <div class="caption">
-        
+
         <div class="row">
           <div class="col-md-1"></div>
           <div class="col-md-8">
             <p>
+              <span class="fa fa-music"></span>
               <span style="font-size: 28px;"><%= video.name %></span><br>
-              <i class="fa fa-music"></i> 
+              <i class="oi oi-tag"></i>
               <span><%= video.score %></span><br>
-              <span class="oi oi-tag"></span>
+              <span class="oi oi-headphones"></span>
               <span><%= video.instrument%></span><br>
               <span class="oi oi-clock"></span>
               <span><%= video.date %></span><br>
             </p>
           </div>
 
-          <div class="col-md-1">    
+          <div class="col-md-1">
             <ul class="icons">
               <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a>
               <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
@@ -75,7 +76,7 @@
       <div style= "height : 445px; text-align:center; vertical-align: middle; line-height: 445px;">
         <a href = "http://localhost:3000/videos/new">
           <i class="fa fa-plus" style="font-size: 96px; "></i>
-        </a>      
+        </a>
     </div>
   </div>
 

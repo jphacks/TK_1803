@@ -1,53 +1,86 @@
 <p id="notice"><%= notice %></p>
 
-<p style="display:inline-block">
-  <strong>Music:</strong>
-  <%= @video.name %>
-</p>
-
-<p style="display:inline-block">
-  <strong>User:</strong>
+<p>
+  <span class="oi oi-person"></span>
   <%= @video.user.name %>
 </p>
 
-<p style="display:inline-block">
-  <strong>Instrument:</strong>
-  <%= @video.instrument %>
+<p>
 </p>
-
-
-<p style="display:inline-block">
-  <strong>Date:</strong>
-  <%= simple_time(@video.created_at) %>
-</p>
-
-<p style="display:inline-block">
-  <strong>Score:</strong>
-  <%= @video.score %>
-</p>
-
-<%= link_to 'Edit', edit_video_path(@video) %> |
-<%= link_to 'Back', videos_path %>
-
-<div style="position:relative;height:0;padding-bottom:56.28%">
-  <iframe src=<%= @video.url.sub(/watch\?v=/, "embed/") %>
-    style="position:absolute;width:100%;height:100%;left:0"
-    width="640" height="360"
-    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
-
 <% id = @video.user.id %>
+<% if id == @user_id %>
+  <%= link_to 'Edit', edit_video_path(@video) %> |
+  <%= link_to 'Back', videos_path %>
+<% end %>
+
+<div class="row">
+
+</div>
+
+<% i = 0 %>
+<% id = @video.user.id %>
+
 <% name = @video.name %>
 <% command =  "name= '" +name+ "'" + " and user_id =" + id.to_s%>
 <% Video.where(command).each do |video| %>
+  <% if i%3==0 %>
+    <% '<div class="row">' %>
+  <% end %>
 
-<div style="display:inline-block">
-  <div>
-    <%= simple_time(video.created_at) %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <iframe width="100%" height="265" src="<%=video.url.sub(/watch\?v=/, "embed/")%>" frameborder="0" allowfullscreen></iframe>
+
+      <div class="caption">
+
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-8">
+            <p>
+              <span class="fa fa-music"></span>
+              <span style="font-size: 28px;"><%= video.name %></span><br>
+              <i class="oi oi-tag"></i>
+              <span><%= video.score %></span><br>
+              <span class="oi oi-headphones"></span>
+              <span><%= video.instrument%></span><br>
+              <span class="oi oi-clock"></span>
+              <%= simple_time(video.created_at) %>
+            </p>
+          </div>
+
+          <div class="col-md-1">
+            <ul class="icons">
+              <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a>
+              <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a>
+              <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a>
+            </ul>
+          </div>
+        </div >
+
+      </div>
     </div>
-  <iframe src=<%= video.url.sub(/watch\?v=/, "embed/") %>
-    width="160" height="90"
-    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-  </iframe>
-</div>
+  </div>
 
+  <% if i%3==0 %>
+    <% '</div>' %>
+  <% end %>
+  <% i+=1 %>
+<% end %>
+
+
+<% if i%3==0 %>
+  <% '<div class="row">' %>
+<% end %>
+
+  <%# <div class="col-sm-6 col-md-4">
+    <div class="thumbnail" >
+      <div style= "height : 445px; text-align:center; vertical-align: middle; line-height: 445px;">
+        <a href = "http://localhost:3000/videos/new">
+          <i class="fa fa-plus" style="font-size: 96px; "></i>
+        </a>
+    </div>
+  </div> %>
+
+<% if i%3==0 %>
+  <% '</div>' %>
 <% end %>

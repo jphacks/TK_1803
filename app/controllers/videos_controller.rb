@@ -1,16 +1,19 @@
 class VideosController < ApplicationController
   before_action :authenticate_user!
   before_action :set_video, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
 
   # GET /videos
   # GET /videos.json
   def index
     @videos = Video.all.order(created_at: :desc)
+    @user_id = current_user.id
   end
 
   # GET /videos/1
   # GET /videos/1.json
   def show
+    @user_id = current_user.id
   end
 
   # GET /videos/new
@@ -25,11 +28,10 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
-    user1 = User.find_by(name: params[:video][:user_name])
 
     @video = Video.new(
-      name: params[:video][:user_name],
-      user: user1,
+      name: params[:video][:name],
+      user: current_user,
       instrument: params[:video][:instrument],
       url: params[:video][:url],
       score: params[:video][:score]
@@ -70,6 +72,14 @@ class VideosController < ApplicationController
     end
   end
 
+  def ensure_correct_user
+    @video = Video.find_by(id: params[:id])
+    if @video.user.id != current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to("/videos/index")
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_video
@@ -78,6 +88,8 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:name, :user, :instrument, :url, :date, :score)
+      params.require(:video).permit(:name, :instrument, :url, :score)
     end
+
+
 end
