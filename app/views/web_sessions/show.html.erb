@@ -4,11 +4,34 @@
   <strong>Name:</strong>
   <%= @web_session.name %>
 </p>
+
+<script type="text/javascript">
+  const medium = document.getElementsByTagName("video");
+  function goZero()
+  {
+    for(const media of medium) {
+      media.currentTime = 0; //先頭に戻す
+      media.play();
+    }
+  }
+</script>
 <% if @web_session.session_players.present? %>
   <% @web_session.session_players.each do |session_player| %>
-    <video id="recordedVideo" width="400" height="300" autoplay loop src="<%= session_player.session_video %>"></video>
+    <video class="recordedVideo" id="recordedVideo<%= session_player.session_video %>" width="200" height="150" src="<%= session_player.session_video %>"></video>
   <% end %>
 <% end %>
+
+<br/>
+
+<button onclick="goZero()">
+  最初から再生
+</button>
+
+<br/>
+
+<%= link_to 'このセッションに参加する', join_web_session_path(@web_session.id) %>
+
+<br />
 
 <%= link_to 'Edit', edit_web_session_path(@web_session) %> |
 <%= link_to 'Back', web_sessions_path %>
