@@ -61,6 +61,10 @@
           blobUrl = window.URL.createObjectURL(videoBlob);
           stream.getVideoTracks()[0].stop();
           stream.getAudioTracks()[0].stop();
+
+          // 送信ボタンを使えるように
+          const button = document.getElementById('send_file');
+          button.removeAttribute('disabled');
         };
 
         // 録画開始
