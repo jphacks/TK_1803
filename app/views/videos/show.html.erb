@@ -40,7 +40,7 @@
     frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
 
 <% id = @video.user.id %>
-<% name = "a" %>
+<% name = @video.name %>
 <% command =  "name= '" +name+ "'" + " and user_id =" + id.to_s%>
 <% Video.where(command).each do |video| %>
 <div style="display:inline-block">
