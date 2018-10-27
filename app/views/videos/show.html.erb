@@ -2,7 +2,9 @@
 
 <p>
   <span class="oi oi-person"></span>
-  <%= @video.user.name %>
+  <a href = "/users/<%= @video.user.id %>">
+    <%= @video.user.name %>
+    </a>
 </p>
 
 <p>
