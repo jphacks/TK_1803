@@ -22,12 +22,15 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    @current_user = current_user
   end
 
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
+
+    current_user.name = params[:user][:name]
 
     respond_to do |format|
       if @user.save
@@ -43,6 +46,9 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+
+    current_user.name = params[:user][:name]
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
