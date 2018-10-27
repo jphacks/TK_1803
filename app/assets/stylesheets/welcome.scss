@@ -1248,8 +1248,8 @@ table.alt tbody tr td {
   -ms-flex-pack: center;
   background: #e74c3c;
   border-radius: 100%;
-  width: 10em;
-  height: 10em;
+  width: 20em;
+  height: 20em;
   padding: 4em;
   text-align: center;
   box-shadow: 0 0 0 1em #FFF;
@@ -1322,8 +1322,8 @@ table.alt tbody tr td {
   -ms-flex-pack: center;
   background: #e74c3c;
   border-radius: 100%;
-  width: 20em;
-  height: 20em;
+  width: 16em;
+  height: 16em;
   padding: 4em;
   text-align: center;
   box-shadow: 0 0 0 1em #FFF;
@@ -1332,23 +1332,39 @@ table.alt tbody tr td {
 }
 
 #welcomeHeader .inner nav #homeMenu.menu-inner {
-  margin-left: -24em;
-  margin-top: -25em;
+  margin-left: -20em;
+  margin-top: -20em;
+  background: #1E98B9;
 }
 
 #welcomeHeader .inner nav #usersMenu.menu-inner {
   margin-left: 4em;
-  margin-top: -25em;
+  margin-top: -20em;
+  background: #4B75B9;
 }
 
 #welcomeHeader .inner nav #videosMenu.menu-inner {
-  margin-left: -24em;
+  margin-left: -20em;
   margin-top: 0em;
+  background: #B2CF3E;
 }
 
 #welcomeHeader .inner nav #sessionsMenu.menu-inner {
   margin-left: 4em;
   margin-top: 0em;
+  background: #E06A3B;
+}
+
+#welcomeHeader .inner nav #homeMenu2.menu-inner {
+  margin-left: -20em;
+  margin-top: -20em;
+  background: #1E98B9;
+}
+
+#welcomeHeader .inner nav #signInMenu.menu-inner {
+  margin-left: 4em;
+  margin-top: 0em;
+  background: #AA0000;
 }
 
 #welcomeHeader.header-hide .inner nav .menu-inner {
@@ -1394,6 +1410,10 @@ table.alt tbody tr td {
 
 #welcomeHeader .inner nav .menu-inner .menu-content a#sessionsBtn h1:before {
   content: '\f001';
+}
+
+#welcomeHeader .inner nav .menu-inner .menu-content a#signInBtn h1:before {
+  content: '\f090';
 }
 
 #welcomeHeader .inner nav .menu-inner .menu-content a {
@@ -1476,8 +1496,8 @@ table.alt tbody tr td {
 @media screen and (max-width: 736px) {
 
   #welcomeHeader .inner {
-    width: 25em;
-    height: 25em;
+    width: 20em;
+    height: 20em;
     font-size: .75em;
     padding: 3em;
   }
@@ -1487,8 +1507,8 @@ table.alt tbody tr td {
 @media screen and (max-width: 480px) {
 
   #welcomeHeader .inner {
-    width: 26em;
-    height: 26em;
+    width: 20em;
+    height: 20em;
     padding: 2em;
     font-size: .65em;
   }
