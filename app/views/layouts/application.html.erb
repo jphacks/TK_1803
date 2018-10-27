@@ -23,6 +23,7 @@
       </div>
       <a href="" class="button header-hidden"><i class="fa fa-bars"></i></a>
       <nav>
+        <% if user_signed_in? %>
         <div id="homeMenu" class="menu-inner">
           <div class="menu-content">
             <a id="homeBtn" href="/" class="big">
@@ -51,6 +52,22 @@
             </a>
           </div>
         </div>
+        <% else %>
+        <div id="homeMenu2" class="menu-inner">
+          <div class="menu-content">
+            <a id="homeBtn" href="/" class="big">
+              <h1>HOME</h1>
+            </a>
+          </div>
+        </div>
+        <div id="signInMenu" class="menu-inner">
+          <div class="menu-content">
+            <a id="signInBtn" href="/users/sign_in" class="big">
+              <h1>Sign In</h1>
+            </a>
+          </div>
+        </div>
+        <% end %>
       </nav>
     </div>
   </header>
