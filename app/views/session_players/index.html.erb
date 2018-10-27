@@ -6,7 +6,8 @@
   <thead>
     <tr>
       <th>User</th>
-      <th>Session</th>
+      <th>Web session</th>
+      <th>Session video</th>
       <th>Instrument</th>
       <th colspan="3"></th>
     </tr>
@@ -16,7 +17,8 @@
     <% @session_players.each do |session_player| %>
       <tr>
         <td><%= session_player.user %></td>
-        <td><%= session_player.session %></td>
+        <td><%= session_player.web_session %></td>
+        <td><%= session_player.session_video %></td>
         <td><%= session_player.instrument %></td>
         <td><%= link_to 'Show', session_player %></td>
         <td><%= link_to 'Edit', edit_session_player_path(session_player) %></td>
