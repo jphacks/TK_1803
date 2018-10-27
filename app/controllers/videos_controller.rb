@@ -1,15 +1,19 @@
 class VideosController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_video, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
 
   # GET /videos
   # GET /videos.json
   def index
-    @videos = Video.all
+    @videos = Video.all.order(created_at: :desc)
+    @user_id = current_user.id
   end
 
   # GET /videos/1
   # GET /videos/1.json
   def show
+    @user_id = current_user.id
   end
 
   # GET /videos/new
@@ -24,7 +28,14 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
-    @video = Video.new(video_params)
+
+    @video = Video.new(
+      name: params[:video][:name],
+      user: current_user,
+      instrument: params[:video][:instrument],
+      url: params[:video][:url],
+      score: params[:video][:score]
+    )
 
     respond_to do |format|
       if @video.save
@@ -56,8 +67,16 @@ class VideosController < ApplicationController
   def destroy
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+      format.html { redirect_to videos_url, notice: 'Video was successfully deleted.' }
       format.json { head :no_content }
+    end
+  end
+
+  def ensure_correct_user
+    @video = Video.find_by(id: params[:id])
+    if @video.user.id != current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to("/videos/index")
     end
   end
 
@@ -69,6 +88,8 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:name, :user_id, :instrument, :url, :date, :score)
+      params.require(:video).permit(:name, :instrument, :url, :score)
     end
+
+
 end

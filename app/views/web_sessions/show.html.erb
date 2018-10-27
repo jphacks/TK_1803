@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @web_session.name %>
+</p>
+<% if @web_session.session_players.present? %>
+  <% @web_session.session_players.each do |session_player| %>
+    <video id="recordedVideo" width="400" height="300" autoplay loop src="<%= session_player.session_video %>"></video>
+  <% end %>
+<% end %>
+
+<%= link_to 'Edit', edit_web_session_path(@web_session) %> |
+<%= link_to 'Back', web_sessions_path %>
