@@ -1,6 +1,6 @@
 class SessionPlayersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_session_player, only: [:show, :edit, :update, :destroy]
+  before_action :set_session_player, only: [:show, :edit, :update, :destroy, :upload]
 
   # GET /session_players
   # GET /session_players.json

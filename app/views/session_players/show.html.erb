@@ -20,10 +20,10 @@
   <%= @session_player.instrument %>
 </p>
 
-<%# if @session.session_video.present? %>
-<!--  <video id="recordedVideo" width="400" height="300" autoplay="1" src="<%#= @session.session_video %>"></video>-->
-<%# end %>
-<video id="myVideo" width="400" height="300" autoplay="1" ></video>
+<% if @session_player.session_video.present? %>
+  <video id="recordedVideo" width="400" height="300" autoplay src="<%= @session_player.session_video %>"></video>
+<% end %>
+<video id="myVideo" width="400" height="300" autoplay ></video>
 
 <script type="text/javascript">
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
