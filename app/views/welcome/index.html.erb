@@ -2,7 +2,9 @@
   <% @videos.each do |video| %>
     <div class="image fit">
       <a href="/videos.html">
-        <%=link_to(image_tag("http://i.ytimg.com/vi/#{video.url}/hqdefault.jpg"),"/videos/#{video.id}")  %>
+        <% u = video.url %>
+        <% u = u.slice(32..-1) %>
+        <%=link_to(image_tag("http://i.ytimg.com/vi/#{u}/hqdefault.jpg"),"/videos/#{video.id}")  %>
       </a>
     </div>
   <% end %>
