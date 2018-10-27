@@ -7,17 +7,23 @@
 
 <p>
 </p>
+<% id = @video.user.id %>
+<% if id == @user_id %>
+  <%= link_to 'Edit', edit_video_path(@video) %> |
+  <%= link_to 'Back', videos_path %>
+<% end %>
 
-<%= link_to 'Edit', edit_video_path(@video) %> |
-<%= link_to 'Back', videos_path %>
 
-
+<<<<<<< HEAD
 <div class="row">
 
 </div>
 
 <% i = 0 %>
 <% id = @video.user.id %>
+=======
+
+>>>>>>> 6172f04d02558cfeeecbed642a20cf3ab52dc1e8
 <% name = @video.name %>
 <% command =  "name= '" +name+ "'" + " and user_id =" + id.to_s%>
 <% Video.where(command).each do |video| %>
