@@ -27,7 +27,7 @@ class VideosController < ApplicationController
     user1 = User.find_by(name: params[:video][:user_name])
 
     @video = Video.new(
-      name: params[:video][:music],
+      name: params[:video][:user_name],
       user: user1,
       instrument: params[:video][:instrument],
       url: params[:video][:url],
@@ -64,7 +64,7 @@ class VideosController < ApplicationController
   def destroy
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
+      format.html { redirect_to videos_url, notice: 'Video was successfully deleted.' }
       format.json { head :no_content }
     end
   end
