@@ -10,23 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_27_045750) do
+ActiveRecord::Schema.define(version: 2018_10_27_053828) do
 
   create_table "session_players", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "session_id"
+    t.integer "web_session_id"
+    t.string "session_video"
     t.string "instrument"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["session_id"], name: "index_session_players_on_session_id"
     t.index ["user_id"], name: "index_session_players_on_user_id"
-  end
-
-  create_table "sessions", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "session_video"
+    t.index ["web_session_id"], name: "index_session_players_on_web_session_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,6 +47,12 @@ ActiveRecord::Schema.define(version: 2018_10_27_045750) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_videos_on_user_id"
+  end
+
+  create_table "web_sessions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Web Sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @web_sessions.each do |web_session| %>
+      <tr>
+        <td><%= web_session.name %></td>
+        <td><%= link_to 'Show', web_session %></td>
+        <td><%= link_to 'Edit', edit_web_session_path(web_session) %></td>
+        <td><%= link_to 'Destroy', web_session, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Web Session', new_web_session_path %>

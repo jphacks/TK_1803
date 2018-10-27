@@ -1,0 +1,2 @@
+class WebSession < ApplicationRecord
+end
