@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Music:</strong>
   <%= @video.name %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @video.user %>
+  <%= @video.user.name %>
 </p>
 
 <p>
@@ -22,7 +22,7 @@
 
 <p>
   <strong>Date:</strong>
-  <%= @video.date %>
+  <%= simple_time(@video.created_at) %>
 </p>
 
 <p>
@@ -32,3 +32,20 @@
 
 <%= link_to 'Edit', edit_video_path(@video) %> |
 <%= link_to 'Back', videos_path %>
+
+<div style="position:relative;height:0;padding-bottom:56.28%">
+  <iframe src=<%= @video.url.sub(/watch\?v=/, "embed/") %>
+    style="position:absolute;width:100%;height:100%;left:0"
+    width="640" height="360"
+    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+
+<% id = @video.user.id %>
+<% name = @video.name %>
+<% command =  "name= '" +name+ "'" + " and user_id =" + id.to_s%>
+<% Video.where(command).each do |video| %>
+<div style="display:inline-block">
+  <iframe src=<%= video.url.sub(/watch\?v=/, "embed/") %>
+
+    width="160" height="90"
+    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+<% end %>

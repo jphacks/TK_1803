@@ -5,7 +5,7 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
-    @videos = Video.all
+    @videos = Video.all.order(created_at: :desc)
   end
 
   # GET /videos/1
@@ -25,7 +25,15 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
-    @video = Video.new(video_params)
+    user1 = User.find_by(name: params[:video][:user_name])
+
+    @video = Video.new(
+      name: params[:video][:music],
+      user: user1,
+      instrument: params[:video][:instrument],
+      url: params[:video][:url],
+      score: params[:video][:score]
+    )
 
     respond_to do |format|
       if @video.save
@@ -70,6 +78,6 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:name, :user_id, :instrument, :url, :date, :score)
+      params.require(:video).permit(:name, :user, :instrument, :url, :date, :score)
     end
 end
