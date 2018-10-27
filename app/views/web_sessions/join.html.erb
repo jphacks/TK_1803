@@ -42,6 +42,8 @@
   let chunks = [];
   let videoBlob = null;
   function startRecording() {
+    // 録音している音はミュートに
+    video.muted = true;
     navigator.getUserMedia({video: true, audio: true},
       function(stream) { // for success case
         video.src = window.URL.createObjectURL(stream);
@@ -67,6 +69,7 @@
           button.removeAttribute('disabled');
         };
 
+
         // 録画開始
         recorder.start();
       },
@@ -75,21 +78,6 @@
       }
     );
 
-  }
-
-  // 録画停止
-  function stopRecording() {
-    recorder.stop();
-    const button = document.getElementById('stop');
-    button.setAttribute('disabled', 'true');
-  }
-
-  // 再生
-  function playRecorded() {
-    video.onended = function() {
-      video.pause();
-    };
-    video.play();
   }
 
   // 動画を送信
@@ -115,11 +103,31 @@
     })
   }
 
+  // 録画停止
+  function stopRecording() {
+    recorder.stop();
+    const medium = document.getElementsByClassName("recordedVideo");
+    for(const media of medium) {
+      media.pause();
+    }
+    const button = document.getElementById('stop');
+    button.setAttribute('disabled', 'true');
+  }
+
+  // 再生
+  function playRecorded() {
+    video.onended = function() {
+      video.pause();
+    };
+    video.play();
+  }
+
   // 最初から再生
   function goZero()
   {
     const medium = document.getElementsByTagName("video");
     if(blobUrl !== null) {
+      video.muted = false;
       video.src = blobUrl;
     }
     for(const media of medium) {
