@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :show, :new, :edit, :create, :update, :destroy]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -58,6 +59,25 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def upload
+    uploaded_file = params[:web_session][:session_video]
+    p uploaded_file
+    file_name = "#{Time.zone.now.to_i.to_s + Time.zone.now.usec.to_s}.webm"
+    file_path = Rails.root.join('public', file_name)
+    File.open(file_path, 'w+b') do |f|
+      f.write(uploaded_file.read)
+    end
+    respond_to do |format|
+      if @session.update(session_video: "/#{file_name}")
+        format.html { redirect_to @session, notice: 'Session was successfully updated.' }
+        format.json { render :show, status: :ok, location: @session }
+      else
+        format.html { render :edit }
+        format.json { render json: @session.errors, status: :unprocessable_entity }
+      end
     end
   end
 
