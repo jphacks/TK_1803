@@ -46,7 +46,14 @@
       function(stream) { // for success case
         video.src = window.URL.createObjectURL(stream);
         recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
+
+        // 再生
         startRestVideos();
+
+        // 停止ボタンを使えるように
+        const button = document.getElementById('stop');
+        button.removeAttribute('disabled');
+
         recorder.ondataavailable = function(evt) {
           // 録画が終了したタイミングで呼び出される
           videoBlob = new Blob([evt.data], { type: evt.data.type });
@@ -69,6 +76,8 @@
   // 録画停止
   function stopRecording() {
     recorder.stop();
+    const button = document.getElementById('stop');
+    button.setAttribute('disabled', 'true');
   }
 
   // 再生
@@ -128,21 +137,18 @@
 
 <br/>
 
-<Button onclick="startRecording()">
+<Button id="rec" onclick="startRecording()">
   録画
 </Button>
 
-<Button onclick="stopRecording()">
+<Button id="stop" onclick="stopRecording()" disabled>
   停止
 </Button>
 
-<Button onclick="playRecorded()">
-  再生
+<Button id="send_file" onclick="sendSession()" disabled>
+  送信
 </Button>
 
-<Button onclick="sendSession()">
-  登録
-</Button>
 <br/>
 
 <button onclick="goZero()">

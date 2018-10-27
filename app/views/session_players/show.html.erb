@@ -32,7 +32,6 @@
 
   let recorder = null;
   let blobUrl = null;
-  let chunks = [];
   let videoBlob = null;
   function startRecording() {
     navigator.getUserMedia({video: true, audio: true},
@@ -42,10 +41,11 @@
         recorder.ondataavailable = function(evt) {
           // 録画が終了したタイミングで呼び出される
           videoBlob = new Blob([evt.data], { type: evt.data.type });
-          chunks.push(evt.data);
           blobUrl = window.URL.createObjectURL(videoBlob);
           stream.getVideoTracks()[0].stop();
           stream.getAudioTracks()[0].stop();
+          const button = document.getElementById('stop');
+          button.removeAttribute('disabled');
         };
 
         // 録画開始
@@ -109,16 +109,12 @@
 
 <br/>
 
-<Button onclick="startRecording()">
+<Button id="rec" onclick="startRecording()">
   録画
 </Button>
 
-<Button onclick="stopRecording()">
+<Button id="stop" onclick="stopRecording()" disabled>
   停止
-</Button>
-
-<Button onclick="playRecorded()">
-  再生
 </Button>
 
 <Button id="send_file" onclick="sendSession()" disabled>
