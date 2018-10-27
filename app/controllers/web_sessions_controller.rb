@@ -1,6 +1,6 @@
 class WebSessionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_web_session, only: [:show, :edit, :update, :destroy]
+  before_action :set_web_session, only: [:show, :edit, :update, :destroy, :join]
 
   # GET /web_sessions
   # GET /web_sessions.json
@@ -60,6 +60,10 @@ class WebSessionsController < ApplicationController
       format.html { redirect_to web_sessions_url, notice: 'Web session was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def join
+    @session_player = SessionPlayer.new(user: current_user, web_session: @web_session)
   end
 
   private

@@ -14,15 +14,45 @@
 
 <body>
   <!-- Header -->
-  <header id="header">
+  <header id="welcomeHeader" class="header-hide">
     <div class="inner">
       <div class="content">
-        <nav>
-
-        </nav>
+        <a id="closeBtn" href="" class="button big">
+          <h1><span>CLOSE</span></h1>
+        </a>
       </div>
+      <a href="" class="button header-hidden"><i class="fa fa-bars"></i></a>
+      <nav>
+        <div id="homeMenu" class="menu-inner">
+          <div class="menu-content">
+            <a id="homeBtn" href="/" class="big">
+              <h1>HOME</h1>
+            </a>
+          </div>
+        </div>
+        <div id="usersMenu" class="menu-inner">
+          <div class="menu-content">
+            <a id="usersBtn" href="/users" class="big">
+              <h1>USERS</h1>
+            </a>
+          </div>
+        </div>
+        <div id="videosMenu" class="menu-inner">
+          <div class="menu-content">
+            <a id="videosBtn" href="/videos/new" class="big">
+              <h1>VIDEOS</h1>
+            </a>
+          </div>
+        </div>
+        <div id="sessionsMenu" class="menu-inner">
+          <div class="menu-content">
+            <a id="sessionsBtn" href="/web_sessions" class="big">
+              <h1>SESSIONS</h1>
+            </a>
+          </div>
+        </div>
+      </nav>
     </div>
-    <a href="" class="menu"><span>Menu</span></a>
   </header>
 
   <!-- Main -->
@@ -34,7 +64,7 @@
 
   <!-- Footer -->
   <footer id="footer">
-    <a href="" class="info"><span>About</span></a>
+    <a href="" class="info fa fa-info-circle"><span>About</span></a>
     <div class="inner">
       <div class="content">
         <h3>Vestibulum hendrerit tortor id gravida</h3>
@@ -56,79 +86,83 @@
   <!-- Scripts -->
   <script>
     /*
-    Radius by TEMPLATED
-    templated.co @templatedco
-    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+    	Radius by TEMPLATED
+    	templated.co @templatedco
+    	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
     */
 
     (function($) {
 
-      skel.breakpoints({
-        xlarge:	'(max-width: 1680px)',
-        large:	'(max-width: 1280px)',
-        medium:	'(max-width: 980px)',
-        small:	'(max-width: 736px)',
-        xsmall:	'(max-width: 480px)'
-      });
+    	skel.breakpoints({
+    		xlarge:	'(max-width: 1680px)',
+    		large:	'(max-width: 1280px)',
+    		medium:	'(max-width: 980px)',
+    		small:	'(max-width: 736px)',
+    		xsmall:	'(max-width: 480px)'
+    	});
 
-      $(function() {
+    	$(function() {
 
-        var	$window = $(window),
-        $body = $('body'),
-        $header = $('#header'),
-        $footer = $('#footer');
+    		var	$window = $(window),
+    			$body = $('body'),
+    			$header = $('#welcomeHeader'),
+    			$footer = $('#footer');
 
-        // Disable animations/transitions until the page has loaded.
-        $body.addClass('is-loading');
+    		// Disable animations/transitions until the page has loaded.
+    			$body.addClass('is-loading');
 
-        $window.on('load', function() {
-          window.setTimeout(function() {
-            $body.removeClass('is-loading');
-          }, 100);
-        });
+    			$window.on('load', function() {
+    				window.setTimeout(function() {
+    					$body.removeClass('is-loading');
+    				}, 100);
+    			});
 
-        // Fix: Placeholder polyfill.
-        $('form').placeholder();
+    		// Fix: Placeholder polyfill.
+    			$('form').placeholder();
 
-        // Prioritize "important" elements on medium.
-        skel.on('+medium -medium', function() {
-          $.prioritize(
-          '.important\\28 medium\\29',
-          skel.breakpoint('medium').active
-          );
-        });
+    		// Prioritize "important" elements on medium.
+    			skel.on('+medium -medium', function() {
+    				$.prioritize(
+    					'.important\\28 medium\\29',
+    					skel.breakpoint('medium').active
+    				);
+    			});
 
-        // Header.
-        $header.each( function() {
+    		// Header.
+    			$header.each( function() {
 
-          var t 		= jQuery(this),
-          inner 	= t.find('.inner'),
-          button 	= t.find('.menu');
+    				var t 		= jQuery(this),
+    					button 	= t.find('.button');
 
-          button.click(function(e) {
-            t.toggleClass('show');
-            $footer.removeClass('show');
-            e.preventDefault();
-          });
+    				button.click(function(e) {
 
-        });
+    					t.toggleClass('header-hide');
 
-        // Footer.
-        $footer.each( function() {
+    					if ( t.hasClass('preview') ) {
+    						return true;
+    					} else {
+    						e.preventDefault();
+    					}
 
-          var t 		= jQuery(this),
-          inner 	= t.find('.inner'),
-          button 	= t.find('.info');
+    				});
 
-          button.click(function(e) {
-            t.toggleClass('show');
-            $header.removeClass('show');
-            e.preventDefault();
-          });
+    			});
 
-        });
+    		// Footer.
+    			$footer.each( function() {
 
-      });
+    				var t 		= jQuery(this),
+    					inner 	= t.find('.inner'),
+    					button 	= t.find('.info');
+
+    				button.click(function(e) {
+    					t.toggleClass('show');
+    					e.preventDefault();
+    				});
+
+    			});
+
+    	});
 
     })(jQuery);
   </script>

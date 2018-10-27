@@ -1,11 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<%= form_for(@session_player, url:{controller: 'session_players', action: 'update'}) do |form| %>
-  <p>
-    <strong>Instrument:</strong>
-    <%= @session_player.instrument %>
-  </p>
-<% end %>
+<p>
+  <strong>Name:</strong>
+  <%= @web_session.name %>
+</p>
+
+<%#= form_for(@session_player, url:{controller: 'session_players', action: 'update'}) do |form| %>
+
+<%#= form.hidden_field(:web_session) %>
+<%#= form.hidden_field(:user) %>
+
+<div class="field">
+  <lable for="session_player_instrument">Instrument</lable>
+  <input type="text" id="session_player_instrument" name="session_player[instrument]">
+</div>
 
 <% if @session_player.session_video.present? %>
   <video id="myVideo" width="400" height="300" autoplay src="<%= @session_player.session_video %>"></video>
@@ -15,9 +23,8 @@
 
 <br />
 
-<% web_session = @session_player.web_session %>
-<% if web_session.session_players.present? %>
-  <% web_session.session_players.each do |session_player| %>
+<% if @web_session.session_players.present? %>
+  <% @web_session.session_players.each do |session_player| %>
     <% unless session_player.id == @session_player.id %>
       <video class="recordedVideo" id="recordedVideo<%= session_player.session_video %>" width="200" height="150" src="<%= session_player.session_video %>"></video>
     <% end %>
@@ -39,6 +46,7 @@
       function(stream) { // for success case
         video.src = window.URL.createObjectURL(stream);
         recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
+        startRestVideos();
         recorder.ondataavailable = function(evt) {
           // 録画が終了したタイミングで呼び出される
           videoBlob = new Blob([evt.data], { type: evt.data.type });
@@ -61,8 +69,6 @@
   // 録画停止
   function stopRecording() {
     recorder.stop();
-    const button = document.getElementById('send_file');
-    button.removeAttribute('disabled');
   }
 
   // 再生
@@ -77,8 +83,11 @@
   function sendSession() {
     const formdata = new FormData();
     formdata.append('session_player[video_file]', videoBlob);
+    formdata.append('session_player[user_id]', <%= @session_player.user_id %>);
+    formdata.append('session_player[web_session_id]', <%= @session_player.web_session_id %>);
+    formdata.append('session_player[instrument]', document.getElementById('session_player_instrument').value);
     $.ajax({
-      url: '/session_players/<%= @session_player.id %>/upload.json',
+      url: '/session_players/upload.json',
       type: 'POST',
       headers: {
         'X-CSRF-Token': document.getElementsByName('csrf-token')[0].getAttribute('content'),
@@ -87,19 +96,29 @@
       processData: false,
       contentType: false
     }).done((data) => {
-      console.log('ok');
+      location.href = "<%= web_session_path(@web_session) %>";
     }).fail((data) => {
       console.log('ng');
     })
   }
 
   // 最初から再生
-  const medium = document.getElementsByTagName("video");
   function goZero()
   {
+    const medium = document.getElementsByTagName("video");
     if(blobUrl !== null) {
       video.src = blobUrl;
     }
+    for(const media of medium) {
+      media.currentTime = 0; //先頭に戻す
+      media.play();
+    }
+  }
+
+  // 他の動画を最初から再生
+  function startRestVideos()
+  {
+    const medium = document.getElementsByClassName("recordedVideo");
     for(const media of medium) {
       media.currentTime = 0; //先頭に戻す
       media.play();
@@ -121,10 +140,9 @@
   再生
 </Button>
 
-<Button id="send_file" onclick="sendSession()" disabled>
-  送信
+<Button onclick="sendSession()">
+  登録
 </Button>
-
 <br/>
 
 <button onclick="goZero()">
@@ -133,4 +151,4 @@
 
 <br/>
 
-<%= link_to 'Back', session_players_path %>
+<%= link_to 'Back', web_sessions_path %>
