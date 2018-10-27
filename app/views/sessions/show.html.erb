@@ -5,5 +5,71 @@
   <%= @session.name %>
 </p>
 
+<video id="myVideo" width="400" height="300" autoplay="1" ></video>
+<video id="playback_video" width="400" height="300" autoplay="1" ></video>
+
+<script type="text/javascript">
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
+  window.URL = window.URL || window.webkitURL;
+
+  let localStream = null;
+  const video = document.getElementById('myVideo');
+  navigator.getUserMedia({video: true, audio: true},
+    function(stream) { // for success case
+      localStream = stream;
+      video.src = window.URL.createObjectURL(stream);
+    },
+    function(err) { // for error case
+      console.log(err);
+    }
+  );
+
+  let recorder = null;
+  let blobUrl = null;
+  function startRecording() {
+    recorder = new MediaRecorder(localStream);
+    recorder.ondataavailable = function(evt) {
+      // 録画が終了したタイミングで呼び出される
+      const videoBlob = new Blob([evt.data], { type: evt.data.type });
+      blobUrl = window.URL.createObjectURL(videoBlob);
+    };
+
+    // 録画開始
+    recorder.start();
+  }
+
+  // 録画停止
+  function stopRecording() {
+    recorder.stop();
+  }
+
+  const playbackVideo =  document.getElementById('playback_video');
+  function playRecorded() {
+    playbackVideo.src = blobUrl;
+    playbackVideo.onended = function() {
+      playbackVideo.pause();
+      playbackVideo.src = "";
+    };
+
+    playbackVideo.play();
+  }
+</script>
+
+<br/>
+
+<Button onclick="startRecording()">
+  録画
+</Button>
+
+<Button onclick="stopRecording()">
+  停止
+</Button>
+
+<Button onclick="playRecorded()">
+  再生
+</Button>
+
+<br/>
+
 <%= link_to 'Edit', edit_session_path(@session) %> |
 <%= link_to 'Back', sessions_path %>
