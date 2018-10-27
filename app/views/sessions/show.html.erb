@@ -5,15 +5,15 @@
   <%= @session.name %>
 </p>
 
+<% if @session.session_video.present? %>
+  <video id="recordedVideo" width="400" height="300" autoplay="1" src="<%= @session.session_video %>"></video>
+<% end %>
 <video id="myVideo" width="400" height="300" autoplay="1" ></video>
-<video id="playback_video" width="400" height="300" autoplay="1" ></video>
 
 <script type="text/javascript">
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
   window.URL = window.URL || window.webkitURL;
 
-  let localStream = null;
-  let isRecorded = false;
   const video = document.getElementById('myVideo');
 
   let recorder = null;
@@ -64,10 +64,9 @@
   // 動画を送信
   function sendSession() {
     const formdata = new FormData();
-    formdata.append('filename', 'test.webm');
-    formdata.append('file', videoBlob);
+    formdata.append('session[session_video]', videoBlob);
     $.ajax({
-      url: '',
+      url: '/sessions/<%= @session.id %>/upload.json',
       type: 'POST',
       data: formdata,
       processData: false,

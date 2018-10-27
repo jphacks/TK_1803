@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  before_action :set_session, only: [:show, :edit, :update, :destroy]
+  before_action :set_session, only: [:show, :edit, :update, :destroy, :upload]
 
   # GET /sessions
   # GET /sessions.json
@@ -61,6 +61,25 @@ class SessionsController < ApplicationController
     end
   end
 
+  def upload
+    uploaded_file = params[:session][:session_video]
+    p uploaded_file
+    file_name = "#{Time.zone.now.to_i.to_s + Time.zone.now.usec.to_s}.webm"
+    file_path = Rails.root.join('public', file_name)
+    File.open(file_path, 'w+b') do |f|
+      f.write(uploaded_file.read)
+    end
+    respond_to do |format|
+      if @session.update(session_video: "/#{file_name}")
+        format.html { redirect_to @session, notice: 'Session was successfully updated.' }
+        format.json { render :show, status: :ok, location: @session }
+      else
+        format.html { render :edit }
+        format.json { render json: @session.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_session
@@ -69,6 +88,6 @@ class SessionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_params
-      params.require(:session).permit(:name)
+      params.require(:session).permit(:name, :session_video)
     end
 end
