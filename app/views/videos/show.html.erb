@@ -25,9 +25,11 @@
   <strong>Score:</strong>
   <%= @video.score %>
 </p>
-
-<%= link_to 'Edit', edit_video_path(@video) %> |
-<%= link_to 'Back', videos_path %>
+<% id = @video.user.id %>
+<% if id == @user_id %>
+  <%= link_to 'Edit', edit_video_path(@video) %> |
+  <%= link_to 'Back', videos_path %>
+<% end %>
 
 <div style="position:relative;height:0;padding-bottom:56.28%">
   <iframe src=<%= @video.url.sub(/watch\?v=/, "embed/") %>
@@ -35,7 +37,7 @@
     width="640" height="360"
     frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
 
-<% id = @video.user.id %>
+
 <% name = @video.name %>
 <% command =  "name= '" +name+ "'" + " and user_id =" + id.to_s%>
 <% Video.where(command).each do |video| %>
