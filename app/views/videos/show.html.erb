@@ -34,4 +34,4 @@
 <%= link_to 'Back', videos_path %>
 
 <div style="position:relative;height:0;padding-bottom:56.28%">
-  <iframe src=<%= @video.url %> style="position:absolute;width:100%;height:100%;left:0" width="640" height="360" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+  <iframe src=<%= @video.url.sub(/watch\?v=/, "embed/") %> style="position:absolute;width:100%;height:100%;left:0" width="640" height="360" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
