@@ -1,31 +1,27 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<p style="display:inline-block">
   <strong>Music:</strong>
   <%= @video.name %>
 </p>
 
-<p>
+<p style="display:inline-block">
   <strong>User:</strong>
   <%= @video.user.name %>
 </p>
 
-<p>
+<p style="display:inline-block">
   <strong>Instrument:</strong>
   <%= @video.instrument %>
 </p>
 
-<p>
-  <strong>Url:</strong>
-  <%= @video.url %>
-</p>
 
-<p>
+<p style="display:inline-block">
   <strong>Date:</strong>
   <%= simple_time(@video.created_at) %>
 </p>
 
-<p>
+<p style="display:inline-block">
   <strong>Score:</strong>
   <%= @video.score %>
 </p>
@@ -43,9 +39,15 @@
 <% name = @video.name %>
 <% command =  "name= '" +name+ "'" + " and user_id =" + id.to_s%>
 <% Video.where(command).each do |video| %>
-<div style="display:inline-block">
-  <iframe src=<%= video.url.sub(/watch\?v=/, "embed/") %>
 
+<div style="display:inline-block">
+  <div>
+    <%= simple_time(video.created_at) %>
+    </div>
+  <iframe src=<%= video.url.sub(/watch\?v=/, "embed/") %>
     width="160" height="90"
-    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+  </iframe>
+</div>
+
 <% end %>
