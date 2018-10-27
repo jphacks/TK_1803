@@ -4,7 +4,7 @@ class VideosController < ApplicationController
   # GET /videos
   # GET /videos.json
   def index
-    @videos = Video.all
+    @videos = Video.all.order(created_at: :desc)
   end
 
   # GET /videos/1
@@ -31,7 +31,6 @@ class VideosController < ApplicationController
       user: user1,
       instrument: params[:video][:instrument],
       url: params[:video][:url],
-      date: params[:video][:date],
       score: params[:video][:score]
     )
 
