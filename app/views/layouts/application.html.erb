@@ -2,6 +2,9 @@
 <html>
 <head>
   <title>TK1803</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
@@ -11,17 +14,44 @@
 
 <body>
   <!-- Header -->
-  <header id="header" class="hide">
+  <header id="header" class="hidehide">
     <div class="inner">
       <div class="content">
-        <h1>Radius</h1>
-        <h2>
-          A fully responsive masonry-style<br />
-          portfolio template.
-        </h2>
-        <a href="#" class="button big alt"><span>Let's Go</span></a>
+        <a id="closeBtn" href="#" class="button big">
+          <h1><span>CLOSE</span></h1>
+        </a>
       </div>
-      <a href="#" class="button hidden"><span>Let's Go</span></a>
+      <a href="" class="button hidden"></a>
+      <nav>
+        <div id="homeMenu" class="menu-inner">
+          <div class="menu-content">
+            <a id="homeBtn" href="/" class="big">
+              <h1>HOME</h1>
+            </a>
+          </div>
+        </div>
+        <div id="usersMenu" class="menu-inner">
+          <div class="menu-content">
+            <a id="usersBtn" href="/users" class="big">
+              <h1>USERS</h1>
+            </a>
+          </div>
+        </div>
+        <div id="videosMenu" class="menu-inner">
+          <div class="menu-content">
+            <a id="videosBtn" href="/videos" class="big">
+              <h1>VIDEOS</h1>
+            </a>
+          </div>
+        </div>
+        <div id="sessionsMenu" class="menu-inner">
+          <div class="menu-content">
+            <a id="sessionsBtn" href="/sessions" class="big">
+              <h1>SESSIONS</h1>
+            </a>
+          </div>
+        </div>
+      </nav>
     </div>
   </header>
 
@@ -106,7 +136,7 @@
 
     				button.click(function(e) {
 
-    					t.toggleClass('hide');
+    					t.toggleClass('hidehide');
 
     					if ( t.hasClass('preview') ) {
     						return true;
