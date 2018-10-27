@@ -13,45 +13,70 @@
   window.URL = window.URL || window.webkitURL;
 
   let localStream = null;
+  let isRecorded = false;
   const video = document.getElementById('myVideo');
-  navigator.getUserMedia({video: true, audio: true},
-    function(stream) { // for success case
-      localStream = stream;
-      video.src = window.URL.createObjectURL(stream);
-    },
-    function(err) { // for error case
-      console.log(err);
-    }
-  );
 
   let recorder = null;
   let blobUrl = null;
+  let chunks = [];
+  let videoBlob = null;
   function startRecording() {
-    recorder = new MediaRecorder(localStream);
-    recorder.ondataavailable = function(evt) {
-      // 録画が終了したタイミングで呼び出される
-      const videoBlob = new Blob([evt.data], { type: evt.data.type });
-      blobUrl = window.URL.createObjectURL(videoBlob);
-    };
+    navigator.getUserMedia({video: true, audio: true},
+      function(stream) { // for success case
+        video.src = window.URL.createObjectURL(stream);
+        recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
+        recorder.ondataavailable = function(evt) {
+          // 録画が終了したタイミングで呼び出される
+          videoBlob = new Blob([evt.data], { type: evt.data.type });
+          chunks.push(evt.data);
+          blobUrl = window.URL.createObjectURL(videoBlob);
+          video.src = "";
+        };
 
-    // 録画開始
-    recorder.start();
+        // 録画開始
+        recorder.start();
+      },
+      function(err) { // for error case
+        console.log(err);
+      }
+    );
+
   }
 
   // 録画停止
   function stopRecording() {
     recorder.stop();
+    const button = document.getElementById('send_file');
+    button.removeAttribute('disabled');
   }
 
-  const playbackVideo =  document.getElementById('playback_video');
+  // 再生
   function playRecorded() {
-    playbackVideo.src = blobUrl;
-    playbackVideo.onended = function() {
-      playbackVideo.pause();
-      playbackVideo.src = "";
+    video.src = blobUrl;
+    video.onended = function() {
+      video.pause();
+      video.src = "";
     };
 
-    playbackVideo.play();
+    video.play();
+  }
+
+  // 動画を送信
+  function sendSession() {
+    const formdata = new FormData();
+    formdata.append('filename', 'test.webm');
+    formdata.append('file', videoBlob);
+    $.ajax({
+      url: '',
+      type: 'POST',
+      data: formdata,
+      processData: false,
+      contentType: false
+    }).done((data) => {
+      console.log('ok');
+    }).fail((data) => {
+      console.log('ng');
+    })
   }
 </script>
 
@@ -67,6 +92,10 @@
 
 <Button onclick="playRecorded()">
   再生
+</Button>
+
+<Button id="send_file" onclick="sendSession()" disabled>
+  送信
 </Button>
 
 <br/>
