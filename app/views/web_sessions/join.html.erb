@@ -46,6 +46,7 @@
       function(stream) { // for success case
         video.src = window.URL.createObjectURL(stream);
         recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
+        startRestVideos();
         recorder.ondataavailable = function(evt) {
           // 録画が終了したタイミングで呼び出される
           videoBlob = new Blob([evt.data], { type: evt.data.type });
@@ -102,12 +103,22 @@
   }
 
   // 最初から再生
-  const medium = document.getElementsByTagName("video");
   function goZero()
   {
+    const medium = document.getElementsByTagName("video");
     if(blobUrl !== null) {
       video.src = blobUrl;
     }
+    for(const media of medium) {
+      media.currentTime = 0; //先頭に戻す
+      media.play();
+    }
+  }
+
+  // 他の動画を最初から再生
+  function startRestVideos()
+  {
+    const medium = document.getElementsByClassName("recordedVideo");
     for(const media of medium) {
       media.currentTime = 0; //先頭に戻す
       media.play();
@@ -140,4 +151,4 @@
 
 <br/>
 
-<%= link_to 'Back', session_players_path %>
+<%= link_to 'Back', web_sessions_path %>
