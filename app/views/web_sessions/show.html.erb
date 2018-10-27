@@ -6,7 +6,7 @@
 </p>
 <% if @web_session.session_players.present? %>
   <% @web_session.session_players.each do |session_player| %>
-    <video id="recordedVideo" width="400" height="300" autoplay src="<%= session_player.session_video %>"></video>
+    <video id="recordedVideo" width="400" height="300" autoplay loop src="<%= session_player.session_video %>"></video>
   <% end %>
 <% end %>
 
