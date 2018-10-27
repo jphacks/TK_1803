@@ -33,6 +33,7 @@
   let recorder = null;
   let blobUrl = null;
   let videoBlob = null;
+
   function startRecording() {
     navigator.getUserMedia({video: true, audio: true},
       function(stream) { // for success case
@@ -63,14 +64,6 @@
     recorder.stop();
     const button = document.getElementById('send_file');
     button.removeAttribute('disabled');
-  }
-
-  // 再生
-  function playRecorded() {
-    video.onended = function() {
-      video.pause();
-    };
-    video.play();
   }
 
   // 動画を送信
