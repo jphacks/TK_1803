@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>Music</th>
       <th>User</th>
       <th>Instrument</th>
       <th>Url</th>
@@ -19,7 +19,7 @@
     <% @videos.each do |video| %>
       <tr>
         <td><%= video.name %></td>
-        <td><%= video.user %></td>
+        <td><%= video.user.name %></td>
         <td><%= video.instrument %></td>
         <td><%= video.url %></td>
         <td><%= video.date %></td>
