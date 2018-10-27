@@ -14,7 +14,7 @@
 
 <body>
   <!-- Header -->
-  <header id="header" class="hidehide">
+  <header id="welcomeHeader" class="header-hide">
     <div class="inner">
       <div class="content">
         <a id="closeBtn" href="#" class="button big">
@@ -105,7 +105,7 @@
 
     		var	$window = $(window),
     			$body = $('body'),
-    			$header = $('#header'),
+    			$header = $('#welcomeHeader'),
     			$footer = $('#footer');
 
     		// Disable animations/transitions until the page has loaded.
@@ -136,7 +136,7 @@
 
     				button.click(function(e) {
 
-    					t.toggleClass('hidehide');
+    					t.toggleClass('header-hide');
 
     					if ( t.hasClass('preview') ) {
     						return true;
