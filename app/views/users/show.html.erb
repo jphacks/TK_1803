@@ -4,14 +4,21 @@
   <span class="oi oi-person"></span>
   <%= @user.name %>
 </p>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
 
 <p>
   <strong>Introduction:</strong>
   <%= @user.introduction %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<% if @user.id == @user_id %>
+  <%= link_to 'Edit', edit_user_path(@user) %> |
+<% end %>
+<%= link_to 'Back', :back %>
+<%= link_to 'Users', users_path %>
 
 <% id = @user.id %>
 <% command =  "user_id =" + id.to_s%>

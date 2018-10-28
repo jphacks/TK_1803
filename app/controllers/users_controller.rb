@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @video = Video.where(user_id: @user.id)
+    @user_id = current_user.id
   end
 
 
