@@ -6,12 +6,19 @@
 </p>
 
 <script type="text/javascript">
+  const videoDelay = [];
+  <% if @web_session.session_players.present? %>
+  <% @web_session.session_players.each_with_index do |session_player, i| %>
+  videoDelay.push(<%= session_player.delay.present? ? session_player.delay : 0 %>);
+  <% end %>
+  <% end %>
+
   const medium = document.getElementsByTagName("video");
   function goZero()
   {
-    for(const media of medium) {
-      media.currentTime = 0; //先頭に戻す
-      media.play();
+    for(let i=0;i<medium.length;++i) {
+      medium[i].currentTime = videoDelay[i]; //先頭に戻す
+      medium[i].play();
     }
   }
 </script>

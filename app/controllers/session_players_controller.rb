@@ -90,6 +90,6 @@ class SessionPlayersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_player_params
-      params.require(:session_player).permit(:user_id, :web_session_id, :session_video, :instrument)
+      params.require(:session_player).permit(:user_id, :web_session_id, :session_video, :instrument, :delay)
     end
 end

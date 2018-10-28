@@ -13,6 +13,36 @@
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
 
+<% id = @user.id %>
+<% command =  "user_id =" + id.to_s%>
+<% commit_log = [] %>
+<% now = Time.new %>
+<% Video.where(command).each do |video| %>
+  <% commit_log.push(((Time.new - video.created_at)/60/60/24).floor) %>
+<% end %>
+<%= '<br />'.html_safe %>
+
+<div>Contribute Callender</div>
+<div style="display:inline-block;vertical-align:top;">
+  <%= now.strftime("From %Y/%-m/%-d") %>
+</div>
+<div style="line-height:7px;font-size:5px;display:inline-block;">
+<% for num in 0..49 do %>
+  <% if commit_log.include?(num) %>
+    <% opacity = 1 %>
+    <% if commit_log.count(num)<10%>
+      <% opacity = commit_log.count(num)/10.0 + 0.1 %>
+    <% end %>
+    <%= sprintf('<div style="height:26px; width:26px; background-color:rgba(0,150,0,%f); display:inline-block;"></div>', opacity).html_safe %>
+  <% else %>
+    <%= '<div style="height:26px; width:26px; background-color:rgba(0,0,0,0.2); display:inline-block;"></div>'.html_safe %>
+  <% end %>
+  <% if num%10==9 %>
+    <%= '<br />'.html_safe %>
+  <% end %>
+<% end %>
+</div>
+<%= (now - 60*60*24*49).strftime("To %Y/%-m/%-d") %>
 
 <div class="row">
 
