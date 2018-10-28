@@ -14,16 +14,12 @@
 <% end %>
 
 
-<<<<<<< HEAD
 <div class="row">
 
 </div>
 
 <% i = 0 %>
 <% id = @video.user.id %>
-=======
-
->>>>>>> 6172f04d02558cfeeecbed642a20cf3ab52dc1e8
 <% name = @video.name %>
 <% command =  "name= '" +name+ "'" + " and user_id =" + id.to_s%>
 <% Video.where(command).each do |video| %>
