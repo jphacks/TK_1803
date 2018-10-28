@@ -14,8 +14,6 @@
 <%= link_to 'Back', users_path %>
 
 
-
-
 <div class="row">
 
 </div>
@@ -37,7 +35,7 @@
           <div class="col-md-8">
             <p>
               <span class="fa fa-music"></span>
-              <span style="font-size: 28px;"><%= video.name %></span><br>
+              <span style="font-size: 28px;"><%=link_to(video.name,"/videos/#{video.id}") %></span><br>
               <i class="oi oi-tag"></i>
               <span><%= video.score %></span><br>
               <span class="oi oi-headphones"></span>
