@@ -1221,6 +1221,23 @@ table.alt tbody tr td {
   z-index: 10001;
 }
 
+#welcomeHeader:after {
+  content: 'PITCH';
+  position: fixed;
+  bottom: 0.5em;
+  left: 0.5em;
+  font-size: 5em;
+  font-family: 'Pattaya', sans-serif;
+  margin: 0 0 0 0;
+  display: block;
+  color: #FFF;
+  z-index: 10001;
+}
+
+#welcomeHeader.header-hide:after {
+  display: none;
+}
+
 #welcomeHeader .inner {
   position: relative;
   -moz-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;

@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def page_title
-    title = "TK1803"
+    title = "PITCH"
     title = @page_title + " | " + title if @page_title
     title
   end
