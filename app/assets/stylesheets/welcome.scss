@@ -1221,6 +1221,23 @@ table.alt tbody tr td {
   z-index: 10001;
 }
 
+#welcomeHeader:after {
+  content: 'PITCH';
+  position: fixed;
+  bottom: 0.5em;
+  left: 0.5em;
+  font-size: 5em;
+  font-family: 'Pattaya', sans-serif;
+  margin: 0 0 0 0;
+  display: block;
+  color: #FFF;
+  z-index: 10001;
+}
+
+#welcomeHeader.header-hide:after {
+  display: none;
+}
+
 #welcomeHeader .inner {
   position: relative;
   -moz-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
@@ -1342,14 +1359,14 @@ table.alt tbody tr td {
   margin-left: -2em;
 }
 
-#welcomeHeader .inner nav #usersMenu.menu-inner {
+#welcomeHeader .inner nav #myPageMenu.menu-inner {
   top: -7em;
   left: 11em;
   margin-top: -2em;
   margin-left: 2em;
 }
 
-#welcomeHeader .inner nav #videosMenu.menu-inner {
+#welcomeHeader .inner nav #newVideoMenu.menu-inner {
   top: 11em;
   left: -7em;
   margin-top: 2em;
@@ -1397,7 +1414,7 @@ table.alt tbody tr td {
   -webkit-transition: color 0.2s ease-in-out;
   -ms-transition: color 0.2s ease-in-out;
   transition: color 0.2s ease-in-out;
-  font-size: 1.5em;
+  font-size: 1.8em;
   display: block;
   color: #FFF;
 }
@@ -1430,11 +1447,11 @@ table.alt tbody tr td {
   content: '\f015';
 }
 
-#welcomeHeader .inner nav .menu-inner .menu-content a#usersBtn h1:before {
-  content: '\f0c0';
+#welcomeHeader .inner nav .menu-inner .menu-content a#myPageBtn h1:before {
+  content: '\f007';
 }
 
-#welcomeHeader .inner nav .menu-inner .menu-content a#videosBtn h1:before {
+#welcomeHeader .inner nav .menu-inner .menu-content a#newVideoBtn h1:before {
   content: '\f03d';
 }
 
