@@ -20,7 +20,6 @@
 </div>
 
 <% i = 0 %>
-
 <% name = @video.name %>
 <% command =  "name= '" +name+ "'" + " and user_id =" + id.to_s%>
 <% Video.where(command).each do |video| %>

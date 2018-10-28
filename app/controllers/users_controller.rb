@@ -15,8 +15,8 @@ class UsersController < ApplicationController
   def show
     @video = Video.where(user_id: @user.id)
     @user_id = current_user.id
+    @current_user = current_user
   end
-
 
   # GET /users/new
   def new

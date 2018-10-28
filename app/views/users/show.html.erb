@@ -28,32 +28,71 @@
   <% commit_log.push(((Time.new - video.created_at)/60/60/24).floor) %>
 <% end %>
 <%= '<br />'.html_safe %>
+<% @page_title = "My Page" %>
 
-<div>Contribute Callender</div>
-<div style="display:inline-block;vertical-align:top;">
-  <%= now.strftime("From %Y/%-m/%-d") %>
-</div>
-<div style="line-height:7px;font-size:5px;display:inline-block;">
-<% for num in 0..49 do %>
-  <% if commit_log.include?(num) %>
-    <% opacity = 1 %>
-    <% if commit_log.count(num)<10%>
-      <% opacity = commit_log.count(num)/10.0 + 0.1 %>
-    <% end %>
-    <%= sprintf('<div style="height:26px; width:26px; background-color:rgba(0,150,0,%f); display:inline-block;"></div>', opacity).html_safe %>
-  <% else %>
-    <%= '<div style="height:26px; width:26px; background-color:rgba(0,0,0,0.2); display:inline-block;"></div>'.html_safe %>
-  <% end %>
-  <% if num%10==9 %>
-    <%= '<br />'.html_safe %>
-  <% end %>
-<% end %>
-</div>
-<%= (now - 60*60*24*49).strftime("To %Y/%-m/%-d") %>
+<div class="jumbotron" style="padding:40px; background-image: url('http://craigwolf.com/news/uploaded_images/Band-2007-760222.jpg');" >
 
-<div class="row">
+  <div class="relative2">
+    <div class="container" style="border-radius: 13px; border: 1px solid #ffffff; width:94px">
+      <font color="white"> Sign Out </font>
+    </div>
+  </div>
 
+  <div class="relative3">
+
+          <% id = @user.id %>
+          <% command =  "user_id =" + id.to_s%>
+          <% commit_log = [] %>
+          <% now = Time.new %>
+          <% Video.where(command).each do |video| %>
+            <% commit_log.push(((Time.new - video.created_at)/60/60/24).floor) %>
+          <% end %>
+          <%= '<br />'.html_safe %>
+
+
+        <div class="container" style="background-color:rgba(255,255,255,0.5); width: 230px; height: 180px; padding:12px" >
+          <div style="line-height:7px;font-size:5px;display:inline-block;">
+          <% for num in 0..34 do %>
+            <% if commit_log.include?(num) %>
+              <% opacity = 1 %>
+              <% if commit_log.count(num)<10%>
+                <% opacity = commit_log.count(num)/10.0 + 0.1 %>
+              <% end %>
+              <%= sprintf('<div style="height:26px; width:26px; border-radius: 2px; background-color:rgba(0,255,0,%f); display:inline-block;"></div>', opacity).html_safe %>
+            <% else %>
+              <%= '<div style="height:26px; width:26px; background-color:rgba(0,0,0,0.2); display:inline-block;"></div>'.html_safe %>
+            <% end %>
+            <% if num%7==6 %>
+              <%= '<br />'.html_safe %>
+            <% end %>
+          <% end %>
+          </div>
+          <h4> <font color="black">Contribute Callender </font></h4>
+        </div>
+
+  </div>
+
+  <div class="relative1">
+    <h1> <font color="white">
+      <%= @user.name %>
+    </font></h1>
+  </div>
+
+  <div class="relative4">
+    <div class="row">
+        <a href="" class="icon fa-twitter"></a> |
+        <a href="" class="icon fa-instagram"></a> |
+        <a href="" class="icon fa-facebook"></a>
+    </div>
+  </div>
+
+  <div class="relative">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAQEhUQEhIVFRUWEBAVFRUQDxUWFhUVFRUXFhYVFRUYHSggGBolHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGhAQGi0dICUtLS0tLS0tLS0rLS0tLS0uLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSstLS0tLS03LS0tLf/AABEIAOEA4QMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAABAAIEBQYDBwj/xABEEAABAwIEAgYGBggFBQEAAAABAAIRAwQFEiExQVEGYXGBkaETIjKxwfAHQlJi0eEUFSMzcoKSskNzotLxNVRjk5Qk/8QAGwEBAAMBAQEBAAAAAAAAAAAAAAIDBAEFBgf/xAAtEQEAAgIBAgQEBQUAAAAAAAAAAQIDESESMQQFQVEiMrHBEzSBkaEGYeHw8f/aAAwDAQACEQMRAD8A0yCfCEKCRkIEJ8JEIGQgU9NIXBGr3IaJg93wVTdYy5u7QBr9eT4wQrWoxp0OonYmR4LNY3SpiYgEHhtrwjgVVktMdl2OsT3Qb7HnakAE8JG3kFW2tdxJJEyrW1tQ8A1WRE+t1DrHBdKFSkP3bC7rOo7fesk2ba1iFZUfUPstcOxzgoFzbVSSXFw7XOJ960da6B036hI8SHKtqvJngOo/iVyLaT6dqVocNHE9xPvQuM44yCARO+3NSn1Mp2kHcFcszW6btPj2jkVZEozUKFwDGeeR1g9kqyw4+ieKjHBzZh+nrZTxI96rabmulh1MaHjA27Y/FRqdZzHSOC7pBdYpUNOtmB5EEeRVnhuPD2XjfYjnxkLOVahfEnhoD7kbU+idrqI2K7WdI3rEvQMOrRUy8HMzAHgQYPvVtCy2EXTapaWEAtOxOpkQe1aVtUgajw4LRWzLerqEk5JWKjYSRKKBsIwijCBoCSeAjCDmkukJIO6RTsqUIGQgQnwggZCa8wuhCoulF05lPK0xmIEkxHP4KNp1G0qxudK3Fr/ISGvEmPnks5cvfUeOJLgCACN9J7kn051BDnRoJmOenxTcKoPdVkk+qAToQABxJKyWn1baV0nXFd05AIaIA3BgdhXShRqVXNZJ113OgmNfnklWaJhsbyfzVnhj205fsSBBO56g0LPMtEQfVw9tMTHUNN1VXgBOuumg4dgHBX1Wu6pwn58FT39tl19yjtKIUF2Gk7EE8tVXXAI0GwVu6jrPJL9BzPjmT+CtrYmiiFMhwc2ZBBB6wpubMMwGsaqZVtQ12WNfLdR6lIsP3eWxgqfVtXNNIvCe/vHBTrJzXzTeR90v/tP4pCzBbrM8J07j8D8iJiVIsgDSRIMLsTEyjauodX1H0nRGXradO4ytf0exn0zDSqOE5SA7q61gRcVOOu2ynYbWyuzbbbGCrY4Z7Rt6nYVC5jTxiD2jQqRCqujVcOpR9YOdM/eOYeRCuIWiOzLbiTA1GE+EoXXDIRhOSQCEoRRQBJKEkElCE6EoQMQTyEMqBixfSO6BrfVOXQZpIkxMDuW1eNO5YvGoZVJdTEHZwIkdvHuVWWeFuKOVObU1XSYDZk+pHlxVgfRMAYNACdozEnmePBOcaTW+tVjTg0kzyHP53VfRyl2YB3IE+Zgb+PJYZncvQrXUJWVrdevUlTLMN9sjsnWAFUteajgOE6D4q4o0w7M2dABpHCQFGVkQkNr6xqTyTLu2jU7qxsaeXUCOvjP4o1qWYx+fiqpTjhmmW8DbnK6i2h+nECO8KwfaH4Kxw+xkgkaAJG0plSVcNAE5SXE/D8lXV7fUADUTw3HJbO8YfZaADJO+3iNFA/RGfVIcR6sgzr1ea7uYk40zd/owDLGknLMeBlUty5tRg1OZsiI9pu+nWJWjx+iYDY31PDTxlULrMjXX55q6k6V3rvsqjLtuHIx+afSpBsGTuplRgJ24b/IUao4zry05q+LbZrV023RCsAImd3T1GB5QtYCvLuj2I5DUEx6piesiQvRbC+bU049vuPFXY7eksmSvrCckgN46k+FcpNSTkkAhEBFKEChJGEkEmECnFNhAECiQkUEeu4jYLJY7QfVqGHA5d5IEzwC1lw+BEaHisRfsqmo524DvrCZPWI+YWfNvTRh7q+4a2kZeTPABcqt1JidsrY5TrGnYfFcsbuZPsgGEsPoekqAxHrlzieQ0HboSs3TxuW2J5XlhaZRm36+3kra0t4HKePf+S4UrhogNGgGil0GPqCZ749yp7rndtRrdB3D4qRbWxiePvP4IW1kA4GPnmrujbztCRTZNtQpP0fzV1RtcrduS7tsANT8lJtTMQzlvpurIppDq2ocZpEvaB9YmY4wOJ+dl0w/DsjdRx8+J+Hcr66w0PAjQgggjcHqXKrROwbHHTs606NTuUuuJjUMfi9HO55j2dAqfE7KAO/VbKtaAFx5uny4qoxemC0xGijo2xT7fb57vBV1WlxjZ0K5c4Tl5Ef8ACrsQYRSc8cKoHdBKsoryKdtzDpDY1WswDEHEl4gZTMTuI10+d1j8uoO2+itcMu3UnEAanqjz3Whkl6rY1Q9odIJPLxEdWqlwqno6xwp+sCNBEiDHZwEyreFfXszW7hCMIhFSRNhKE5JAEk6EkEiEoToQhA1NKeQgQgjXQ9U8+Hes9ipaYAEOiCI5c/PVaO6HqkHiFmLuhUcSC5pPMy13aDsQqsnsuxMhiTGyeOXtXbDa0QOJ+QF3xCzLCQY14Dn2qvsn/tD1aeX4LJaNxptpMNNg1s6q8jhm1PMhbGjatYNxPL4rHYXfuYC0QNZ2RvekLWzLySN8gLj+S5Ws+kJWs2dN1NumYT1qdQrDgV5ezEqr3ANpVdWlzc2UZgNyNdVc4JjLi7K6f5hBCnNbR3Ri8WjidvQX1NFWXFyGesN5Vra0WuYDzCzmOtMkN8kl2o1ukhEAckwY6TqZVE3A6lSoGvLmiJMSBHKeJ1ULHuidUVXCjSLmkNyuD6pyiBJ9UwXTPtdS7XF1eqGTJFfTa8pYg5zi48/yXO7qteDw0Vda9FK7GNd6VzXcQTM66dhVvRwqsGw8Dbdh81CadK2ttxthMRidNpHeZUFlwXU64neq0ieY4+St8fw9+fK0E6z2R19qobcZf2ZG5k+4KVNaRyRO3A0gdI2Ig9Uwr/o9YgVGl22mrTr4qPUohrAewSr3o5Z0xD31ZiTl4aa6lTpzKrL8MNjbjSeoDwXaFzthInnr+C7QtUMMhCUJ0IrrgQlCKMIGpJ0JIJKCcggbCUIwgUDXBUmLWDiJB09yvCExzAVG1dwlW2pebYtYnUtMkQZ5/gqiwqzVa0+1O44ra45atZOZggmc2UadumyzNrb0/T0wwh3rTppCzWrpspfa6o4UXnQ6FWVn0Zohjmfa1JJEyNjr3K3wey1laNts37IUKzMLrViY0yeA9GqNu4vBzO12boJ3Kk18KphxcBvqSeJiAByWn9EOAVNiLvWy9ina24QrjiOy4s2xTA6goLqbcxniVOsx6ncoVyIMlRlOEwUcw3XJ1i77ZA7F1saoOinlTidwrt8Mq1liBqZdG0pVqSsnQoVyoTVKtmYxe0bvCwFxYNFwGxMk7L0fEnggrN2dFrrnUbUyRPAyozGkotyoekll6O3a3ZzntjXUBSui2C5jne6QIkDj1FRfpDqzUp0Wx9s+4fFaPohbvFIOc6Z2Og07Ffihnz3lftajCMIwtDGaknQlCBQikEYQCEk5FBIITYXQpsIGJQikgbCBCckg41KQdoQD2hZq/wAEy1BUptEAyYjYT+a1JCj3NHM0iSNNwVG0bhKtprLvg5BAV01wiVhsNxMMOU8OtXP64bG6y9noRO11WumgKiFUOcHH7ZjsGi4C5dUOm3NZXpZc3FLSnqJmeIPHuXO8p612er2oGVVeIV2ZonWV5pbdOLoNDXth3PWCocXly/0gqubJ0DdB3811CO70p1zFUBn2TMbKUMXymHaLN9HbZ9P948ucdyfcru5t2VmwR38R2KO1kx7rMYgCN1Avr8RuqH0NWi7KHZ2ExvqO1Pu7Z5Ild3tCY06OrBwJWbv8YFo/0hGaW5Rw1WguKeVoHWsN0nfneGA93endyeOUaxuP0uu91XV3tDkGtIBHgV6ZhtENYABGmw6uKy/RPos0NFd85zo3qbx7ZWzDYWmldcsWS2+CSRShWKgRhGEQEACKMJQgCKMIIJRTU4oIGoFOIQIQMSToQQBNcE5JBisRtoruGwJkdhVjh+HOc3uXbpJQjLV5aE9RXTB70MIPA6HtWXJGpbcdt1cTizKfqn1QDGumq43VS3qavqN7JE+C1N1aUKzS0taQd5APv3WTu+jNux0inl3jK9wB7gYCrrHuviY37OAo2TjrPbkMe5S23dpR1b63+kd2b4LlbWNBk5qc97vxUy2qUWfu6TR97IJ8SpcL+mnuY7H3D2LWodNCdAe8iCu9o2/udMjKLTxc7M7uaNPNTLVj3nQa8yr+3aKYAO/Nc4U3mvoh2WDCmBme5xEE5o3HUOxQ7sZn6bKwvL+BA5cFRXF2BqT5qKvaPjFcNB14+5VOA4VSrzXe2Tmhs9Sp8fxU1X+jadzGnzouvRzpUy3qmzr5WszRTqbang/hrzV2KvKrPbUN6xkCAnIjXX3IwtLGaiEYShAkkYSRwkkYRhA1JOhJHUohNITiggEIFEoIGkIFOQQMKCcQhCDlcUWvaWu2IhYm6z2r/R1PZJJY6dxJieR0W6Ue+smVmlj2hwPMKFq9Syl+mWdw/Gy14a4+qeK1LIqDge1ea9JcNqWQDswdTLoZzB5Qd1Y4H0nDmiTBAAOvZsstqzVspMWjhuv1Q08Y6gF1Zg1JsEme5VeH423ifEqXUxdu09a5EwnqVsBTYOQ6+CrcTvgAHTpCp77GevTXjwjftWQ6QdJ9Cxh1mPD5CjM7nUOxX1X/AOug6o7UQs70jx4asadeorN1MVdEDdSMIwl9Z4e7zU6190ZS+j1q5zvSu7vxXHptg4NP9KboQ4NeOBB0C2VvZBjYAVP0qb/+Gt/mU/erKzqYU5I3WdqToX06daxQuC59H6rhq+n/ALm9S9Wsb+jXaHUqjHggEZHg+W47F85ndENB3APaAtTC+lSEF4HheO3VsZo1ntH2c0s/odI74Wxwn6THiG3FEOH2qJg/0u081x3b0tEKlwzpTZXEZKzQT9Wp6jvAq6bqJGo5jZAUUkkdJJFJBIIQTyhCBqaQukJpQMSKcUEDUITllekfTmztJaHelqfYpEGP4nbD/lBpnaanbeViekX0jWtvLKH7eoJEtMUmnrf9f+XTrXnvSPpdd3sh78lM/wCFTJDf5ju/v06lnijm1pi3SGvdVm1qzphwho0a0TqGjsU99J9PVuyy9QaHsXoVnb+kY3sCryf3XYJnarp47VadSu1bpHWdoDsN0+8wrqUVmGKnpq2RaZ7mVsYrOESotKi954q9tcGB3V5Y4c1uwXOI7JTKowbo+SQX6rdYfh4YNvJNsLeFdUqcIrlBrUYCyvTZuWxqddWl/ctncclivpQOS3pN+1W17mkrtfmhXkn4ZeWOCcAiQnNC1sRzQnAJNRQJWFhjd1Q/dVnt6g4x2QVXpLg3GG/STcs0rU2VRzHqO8Rp5LVYZ9INjVgPLqLv/K2W/wBbZA/mheOJAobe/fr+x/7u2/8Aqpf7kl4FKSO7fTJCanlNhHQTSEXuA1JA7TCxnSb6Q7a1mnRHp6g0OUxTB5F/HjsjjYOMa8OtY/H/AKQrO2llMmvUE6UiMgP3qh0/pkrzHHelV5eyKtSGH/Dp+qzvH1u+VSwu6NtHj/Te9u5aX+ipn6lKRp1u3KzMJ8IEI4YU0p5TUHMBej4Af2dN3B1NnjEHzBXnYC33Q6s2pQFOfXYXac2zOniqsvZo8PWbTOvZpn2IcFBOHEHbyVxh7+BUyrQ4qhohS21orKhalSaTByU6iFxLZttQhTHGAnMYuVdpXUZchqV599Llb9pQp8qb3HvIA+K9ItreJc4wNySYAHavIPpGxBle9cabpaymxgI2kSTHj5KePuqyxPTtlHMS2XRczTk6rSyFTKekAigCSSSAIgJIoFCCKSD6ZKCcVWdJbv0FpcVRoWW9Yt/jyHJ/qgd64k8U6a9I6l5cOcHkU2vc2k1pOXIDAd2ujN3xwWdTnDYJBdRABFFJA0hCE5AoGlcy1dSE1A0BXGB1nMJLTBBBH5KohWWDH144FuqqzR8EvR8qtrxVY99x/D0DB8dpvjOQx3E/VP4La2kPbprpwMryKrQI1Go8063uajPYe9v8LnN/tKyRd7+fymlp3Wen6PXzadS60qQH/K8kditwRBr1P/a/8VzfePd7VVx/ic4+8p1qY8nn1vH7PX7nEKFEftKrG9ReJ7hxWcxLptQbIpNNQ8z6rPP1j4Lz9gnYE90Ls2kezs1K5OSWvF5PirzaZt/Ef7+qzxPHri50qPhv2GSG+HErEXjpe4/eK1jaMD4rIVXSSeZJ8SrfD82mWTz6tcWGmOsajf2/yYmuKcmu3Wx8qISSCSAIpBJAkkkEDpQQRQfThWM+le5LMPc0f4lakw9mr/fTC2cLDfTAB+gtnf8ASqcf0VJXEpeN7hNhFqC6iKSEooEUoSSXAE2E9NcF0NKn4OYqN65HioMKRZvyuaeTgVG8brMNHhMn4eelvaY+rWhvArjVteIUot0Sa6V5j9GmsShsfG4UllQHgnOpApraYCGpg5742CdQp8TumNElSGhEoc7x2Wm48mO9yxS1mO1Iou64Hmsk5a/DRxMvk/6jvvJSvtEz+/8AwZTDunJrVqfNnIIoICkkggKBSQKBSihKSD6elea/TVWilbsnepVJHY1sHzK9KIXkH0y3Oa5pU/sUZPa5xPuhcSl5+xAprUXrqJwRTQnICkkkuBIPCSS6GpzExPaUl1scNrZ6bXdUHtC6VGRqFV9GqstczkZHeroiV5l41aYfo3gsv4vh6X94g1j5CD0zLlOmy6ASotANaugSTS5Euyo6R1PVA+9+azxVv0gf7I7SqdbsEao+G88v1eLmPaIj7/cnbIAJORV7xySQRQJIpFBAUEkCUDvSHq8AiuOZJB9RFeJ/S3/1B3+VR/tSSXEpYlyTkkl2ERCcEkkkFEJJIAUQkkuDmnNSSXRddGv3h/hPwWh4JJLzs3zy++8n/KUCpsexFmySSqemcuR49iKS65Zncf8Aab/D8SqoIpLfh+SHwXm/5y/6fSDXb9yISSVzzCQRSXACgEUl0JNckkg5pJJIP//Z" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container" style="height:200px"> </div>
 </div>
+
 
 <% i = 0 %>
 <% @video.each do |video| %>
@@ -71,9 +110,9 @@
           <div class="col-md-1"></div>
           <div class="col-md-8">
             <p>
-              <span class="fa fa-music"></span>
               <span style="font-size: 28px;"><%=link_to(video.name,"/videos/#{video.id}") %></span><br>
-              <i class="oi oi-tag"></i>
+              <br>
+              <span class="fa fa-music"></span>
               <span><%= video.score %></span><br>
               <span class="oi oi-headphones"></span>
               <span><%= video.instrument%></span><br>
@@ -102,19 +141,23 @@
 <% end %>
 
 
-<% if i%3==0 %>
-  <% '<div class="row">' %>
-<% end %>
+<% if current_user.id == @user.id %>
 
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail" >
-      <div style= "height : 445px; text-align:center; vertical-align: middle; line-height: 445px;">
-        <a href = "http://localhost:3000/videos/new">
-          <i class="fa fa-plus" style="font-size: 96px; "></i>
-        </a>
+  <% if i%3==0 %>
+    <% '<div class="row">' %>
+  <% end %>
+
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail" >
+        <div style= "height : 445px; text-align:center; vertical-align: middle; line-height: 445px;">
+          <a href = "http://localhost:3000/videos/new">
+            <i class="fa fa-plus" style="font-size: 96px; "></i>
+          </a>
+      </div>
     </div>
-  </div>
 
-<% if i%3==0 %>
-  <% '</div>' %>
-<% end %>
+  <% if i%3==0 %>
+    <% '</div>' %>
+  <% end %>
+
+ <% end %>

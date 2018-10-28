@@ -1,3 +1,50 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.jumbotron{
+  background-image: url(‘http://craigwolf.com/news/uploaded_images/Band-2007-760222.jpg’);
+  background-size: cover;
+  background-repeat: no-repeat;
+ }
+
+ .avatar {
+  width: 250px;
+  height: 250px;
+  border-radius: 60%;
+  border: 5px solid #ffffff;
+}
+
+div.relative {
+  position: absolute;
+  left: 100px;
+  top: 260px; 
+}
+
+
+div.relative1 {
+  position: relative;
+  top: 260px; 
+  left: 320px;
+}
+
+div.relative2 {
+  position: absolute;
+  right: 70px;
+}
+
+div.relative3 {
+  position: absolute;
+  right: 50px;
+  top: 240px;
+  color: #ffffff;
+}
+
+
+div.relative4 {
+  position: absolute;
+  top: 410px;
+  left: 400px;
+  font-size: 30px;
+  color: #ffffff;
+}
