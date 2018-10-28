@@ -1,29 +1,28 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>User:</strong>
-  <%= @session_player.user %>
-</p>
-
-<p>
-  <strong>Web session:</strong>
-  <%= @session_player.web_session %>
-</p>
-
-<p>
-  <strong>Session video:</strong>
-  <%= @session_player.session_video %>
-</p>
-
-<p>
-  <strong>Instrument:</strong>
-  <%= @session_player.instrument %>
-</p>
+<%= form_for(@session_player, url:{controller: 'session_players', action: 'update'}) do |form| %>
+  <p>
+    <strong>Instrument:</strong>
+    <%= @session_player.instrument %>
+  </p>
+<% end %>
 
 <% if @session_player.session_video.present? %>
-  <video id="recordedVideo" width="400" height="300" autoplay src="<%= @session_player.session_video %>"></video>
+  <video id="myVideo" width="400" height="300" autoplay src="<%= @session_player.session_video %>"></video>
+<% else %>
+  <video id="myVideo" width="400" height="300" autoplay ></video>
 <% end %>
-<video id="myVideo" width="400" height="300" autoplay ></video>
+
+<br />
+
+<% web_session = @session_player.web_session %>
+<% if web_session.session_players.present? %>
+  <% web_session.session_players.each do |session_player| %>
+    <% unless session_player.id == @session_player.id %>
+      <video class="recordedVideo" id="recordedVideo<%= session_player.session_video %>" width="200" height="150" src="<%= session_player.session_video %>"></video>
+    <% end %>
+  <% end %>
+<% end %>
 
 <script type="text/javascript">
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
@@ -33,8 +32,8 @@
 
   let recorder = null;
   let blobUrl = null;
-  let chunks = [];
   let videoBlob = null;
+
   function startRecording() {
     navigator.getUserMedia({video: true, audio: true},
       function(stream) { // for success case
@@ -43,9 +42,11 @@
         recorder.ondataavailable = function(evt) {
           // 録画が終了したタイミングで呼び出される
           videoBlob = new Blob([evt.data], { type: evt.data.type });
-          chunks.push(evt.data);
           blobUrl = window.URL.createObjectURL(videoBlob);
-          video.src = "";
+          stream.getVideoTracks()[0].stop();
+          stream.getAudioTracks()[0].stop();
+          const button = document.getElementById('stop');
+          button.removeAttribute('disabled');
         };
 
         // 録画開始
@@ -65,21 +66,10 @@
     button.removeAttribute('disabled');
   }
 
-  // 再生
-  function playRecorded() {
-    video.src = blobUrl;
-    video.onended = function() {
-      video.pause();
-      video.src = "";
-    };
-
-    video.play();
-  }
-
   // 動画を送信
   function sendSession() {
     const formdata = new FormData();
-    formdata.append('session_player[session_video]', videoBlob);
+    formdata.append('session_player[video_file]', videoBlob);
     $.ajax({
       url: '/session_players/<%= @session_player.id %>/upload.json',
       type: 'POST',
@@ -95,20 +85,29 @@
       console.log('ng');
     })
   }
+
+  // 最初から再生
+  const medium = document.getElementsByTagName("video");
+  function goZero()
+  {
+    if(blobUrl !== null) {
+      video.src = blobUrl;
+    }
+    for(const media of medium) {
+      media.currentTime = 0; //先頭に戻す
+      media.play();
+    }
+  }
 </script>
 
 <br/>
 
-<Button onclick="startRecording()">
+<Button id="rec" onclick="startRecording()">
   録画
 </Button>
 
-<Button onclick="stopRecording()">
+<Button id="stop" onclick="stopRecording()" disabled>
   停止
-</Button>
-
-<Button onclick="playRecorded()">
-  再生
 </Button>
 
 <Button id="send_file" onclick="sendSession()" disabled>
@@ -117,5 +116,10 @@
 
 <br/>
 
-<%= link_to 'Edit', edit_session_player_path(@session_player) %> |
+<button onclick="goZero()">
+  最初から再生
+</button>
+
+<br/>
+
 <%= link_to 'Back', session_players_path %>

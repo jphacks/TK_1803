@@ -9,17 +9,51 @@
   </div>
 
   <div class="relative3">
-    <div class="row">
-      <a href="" class="icon fa-twitter"></a> |
-      <a href="" class="icon fa-instagram"></a> | 
-      <a href="" class="icon fa-facebook"></a>
-    </div>
+
+          <% id = @user.id %>
+          <% command =  "user_id =" + id.to_s%>
+          <% commit_log = [] %>
+          <% now = Time.new %>
+          <% Video.where(command).each do |video| %>
+            <% commit_log.push(((Time.new - video.created_at)/60/60/24).floor) %>
+          <% end %>
+          <%= '<br />'.html_safe %>
+
+      
+        <div class="container" style="background-color:rgba(255,255,255,0.5); width: 216px; height: 180px; padding:12px" >
+          <div style="line-height:7px;font-size:5px;display:inline-block;">
+          <% for num in 0..34 do %>
+            <% if commit_log.include?(num) %>
+              <% opacity = 1 %>
+              <% if commit_log.count(num)<10%>
+                <% opacity = commit_log.count(num)/10.0 + 0.1 %>
+              <% end %>
+              <%= sprintf('<div style="height:26px; width:26px; border-radius: 2px; background-color:rgba(0,255,0,%f); display:inline-block;"></div>', opacity).html_safe %>
+            <% else %>
+              <%= '<div style="height:26px; width:26px; background-color:rgba(0,0,0,0.2); display:inline-block;"></div>'.html_safe %>
+            <% end %>
+            <% if num%7==6 %>
+              <%= '<br />'.html_safe %>
+            <% end %>
+          <% end %>
+          </div>
+          <h4> <font color="black">Contribute Callender </font></h4>
+        </div>
+
   </div>
 
   <div class="relative1">
     <h1> <font color="white"> 
       <%= @user.name %> 
     </font></h1>   
+  </div>
+
+  <div class="relative4">
+    <div class="row">
+        <a href="" class="icon fa-twitter"></a> |
+        <a href="" class="icon fa-instagram"></a> | 
+        <a href="" class="icon fa-facebook"></a>
+    </div>
   </div>
 
   <div class="relative">
@@ -46,10 +80,11 @@
           <div class="col-md-1"></div>
           <div class="col-md-8">
             <p>
-              <span style="font-size: 28px;"><%= video.name %></span><br>
-              <i class="fa fa-music"></i>
+              <span style="font-size: 28px;"><%=link_to(video.name,"/videos/#{video.id}") %></span><br>
+              <br>
+              <span class="fa fa-music"></span>
               <span><%= video.score %></span><br>
-              <span class="oi oi-tag"></span>
+              <span class="oi oi-headphones"></span>
               <span><%= video.instrument%></span><br>
               <span class="oi oi-clock"></span>
               <span><%= video.date %></span><br>

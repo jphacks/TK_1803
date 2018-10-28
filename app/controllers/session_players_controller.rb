@@ -1,6 +1,6 @@
 class SessionPlayersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_session_player, only: [:show, :edit, :update, :destroy, :upload]
+  before_action :set_session_player, only: [:show, :edit, :update, :destroy]
 
   # GET /session_players
   # GET /session_players.json
@@ -63,14 +63,16 @@ class SessionPlayersController < ApplicationController
   end
 
   def upload
-    uploaded_file = params[:session_player][:session_video]
+    @session_player = SessionPlayer.new(session_player_params)
+    uploaded_file = params[:session_player][:video_file]
     file_name = "#{Time.zone.now.to_i.to_s + Time.zone.now.usec.to_s}.webm"
     file_path = Rails.root.join('public', file_name)
     File.open(file_path, 'w+b') do |f|
       f.write(uploaded_file.read)
     end
+    @session_player.session_video = "/#{file_name}"
     respond_to do |format|
-      if @session_player.update(session_video: "/#{file_name}")
+      if @session_player.save
         format.html { redirect_to @session_player, notice: 'Session was successfully updated.' }
         format.json { render :show, status: :ok, location: @session_player }
       else
@@ -88,6 +90,6 @@ class SessionPlayersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def session_player_params
-      params.require(:session_player).permit(:user_id, :web_session_id, :session_video, :instrument)
+      params.require(:session_player).permit(:user_id, :web_session_id, :session_video, :instrument, :delay)
     end
 end
