@@ -61,3 +61,6 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 gem 'devise'
+
+# use font-awesome
+gem 'font-awesome-rails'
