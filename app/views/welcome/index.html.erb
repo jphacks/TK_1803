@@ -1,4 +1,7 @@
+<% @page_title = "Home" %>
+
 <div class="columns">
+  <% if @videos.present? %>
   <% @videos.each do |video| %>
     <div class="image fit">
       <a href="/videos.html">
@@ -7,5 +10,112 @@
         <%=link_to(image_tag("http://i.ytimg.com/vi/#{u}/hqdefault.jpg"),"/videos/#{video.id}")  %>
       </a>
     </div>
+  <% end %>
+  <% else %>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/G6s8HF1WsJY/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/_CKbNJkcwe0/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/Fk4sgvvHyeI/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/2WY1wrwpd3k/hqdefault.jpg') %>
+    </a>
+  </div>
+
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/6m3A1MP_gbU/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/bRWQckbQ9tQ/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/plXjYiRcBtA/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/vNzTsCsPrwI/hqdefault.jpg') %>
+    </a>
+  </div>
+
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/jVOpvX3tDN0/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/4Sd3iIdM4Co/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/qVrM-BxWybA/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/rOU4YiuaxAM/hqdefault.jpg') %>
+    </a>
+  </div>
+
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/cFt59n19Jnw/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/mORyYinMBdg/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/bAo-1Wsx4PY/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/56GHcXHpHJQ/hqdefault.jpg') %>
+    </a>
+  </div>
+
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/yT_ylSCgY6Q/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/ILz87f2iX7M/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/WfB79A7EKxo/hqdefault.jpg') %>
+    </a>
+  </div>
+  <div class="image fit">
+    <a href="detail1.html">
+      <%= image_tag('http://i.ytimg.com/vi/j7CDb610Bg0/hqdefault.jpg') %>
+    </a>
+  </div>
+</div>
   <% end %>
 </div>
