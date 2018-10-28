@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+    @user_id = current_user.id
   end
 
   # GET /users/1
@@ -67,6 +69,14 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def ensure_correct_user
+    @user = User.find_by(id: params[:id])
+    if @user.id != current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to("/users/index")
     end
   end
 
