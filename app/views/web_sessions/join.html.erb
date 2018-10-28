@@ -5,11 +5,6 @@
   <%= @web_session.name %>
 </p>
 
-<%#= form_for(@session_player, url:{controller: 'session_players', action: 'update'}) do |form| %>
-
-<%#= form.hidden_field(:web_session) %>
-<%#= form.hidden_field(:user) %>
-
 <div class="field">
   <lable for="session_player_instrument">Instrument</lable>
   <input type="text" id="session_player_instrument" name="session_player[instrument]">
@@ -24,14 +19,18 @@
 <br />
 
 <% if @web_session.session_players.present? %>
-  <% @web_session.session_players.each do |session_player| %>
-    <% unless session_player.id == @session_player.id %>
-      <video class="recordedVideo" id="recordedVideo<%= session_player.session_video %>" width="200" height="150" src="<%= session_player.session_video %>"></video>
-    <% end %>
+  <% @web_session.session_players.each_with_index do |session_player, i| %>
+    <video class="recordedVideo" id="recordedVideo-<%= i %>" width="200" height="150" src="<%= session_player.session_video %>"></video>
   <% end %>
 <% end %>
 
 <script type="text/javascript">
+  const videoDelay = [];
+  <% if @web_session.session_players.present? %>
+  <% @web_session.session_players.each_with_index do |session_player, i| %>
+  videoDelay.push(<%= session_player.delay.present? ? session_player.delay : 0 %>);
+  <% end %>
+  <% end %>
   navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || window.navigator.mozGetUserMedia;
   window.URL = window.URL || window.webkitURL;
 
@@ -39,16 +38,15 @@
 
   let recorder = null;
   let blobUrl = null;
-  let chunks = [];
   let videoBlob = null;
+
   function startRecording() {
+    // 録音している音はミュートに
+    video.muted = true;
     navigator.getUserMedia({video: true, audio: true},
       function(stream) { // for success case
         video.src = window.URL.createObjectURL(stream);
         recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
-
-        // 再生
-        startRestVideos();
 
         // 停止ボタンを使えるように
         const button = document.getElementById('stop');
@@ -57,10 +55,18 @@
         recorder.ondataavailable = function(evt) {
           // 録画が終了したタイミングで呼び出される
           videoBlob = new Blob([evt.data], { type: evt.data.type });
-          chunks.push(evt.data);
           blobUrl = window.URL.createObjectURL(videoBlob);
           stream.getVideoTracks()[0].stop();
           stream.getAudioTracks()[0].stop();
+
+          // 送信ボタンを使えるように
+          const button = document.getElementById('send_file');
+          button.removeAttribute('disabled');
+        };
+
+        recorder.onstart = function(evt) {
+          // 再生
+          startRestVideos();
         };
 
         // 録画開始
@@ -73,21 +79,6 @@
 
   }
 
-  // 録画停止
-  function stopRecording() {
-    recorder.stop();
-    const button = document.getElementById('stop');
-    button.setAttribute('disabled', 'true');
-  }
-
-  // 再生
-  function playRecorded() {
-    video.onended = function() {
-      video.pause();
-    };
-    video.play();
-  }
-
   // 動画を送信
   function sendSession() {
     const formdata = new FormData();
@@ -95,6 +86,7 @@
     formdata.append('session_player[user_id]', <%= @session_player.user_id %>);
     formdata.append('session_player[web_session_id]', <%= @session_player.web_session_id %>);
     formdata.append('session_player[instrument]', document.getElementById('session_player_instrument').value);
+    formdata.append('session_player[delay]', document.getElementById('session_player_delay').value);
     $.ajax({
       url: '/session_players/upload.json',
       type: 'POST',
@@ -111,16 +103,46 @@
     })
   }
 
+  // 録画停止
+  function stopRecording() {
+    recorder.stop();
+    const medium = document.getElementsByClassName("recordedVideo");
+    for(const media of medium) {
+      media.pause();
+    }
+    const button = document.getElementById('stop');
+    button.setAttribute('disabled', 'true');
+  }
+
+  // 再生
+  function playRecorded() {
+    video.onended = function() {
+      video.pause();
+    };
+    video.play();
+  }
+
   // 最初から再生
   function goZero()
   {
-    const medium = document.getElementsByTagName("video");
+    const medium = document.getElementsByClassName("recordedVideo");
     if(blobUrl !== null) {
+      let delay;
+      if(document.getElementById('session_player_delay').value===""){
+        delay = 0;
+      } else {
+        delay = parseFloat(document.getElementById('session_player_delay').value);
+      }
+
+      video.muted = false;
       video.src = blobUrl;
+      console.log(delay);
+      video.currentTime = delay;
+      video.play();
     }
-    for(const media of medium) {
-      media.currentTime = 0; //先頭に戻す
-      media.play();
+    for(let i=0;i<medium.length;++i) {
+      medium[i].currentTime = videoDelay[i]; //先頭に戻す
+      medium[i].play();
     }
   }
 
@@ -128,11 +150,12 @@
   function startRestVideos()
   {
     const medium = document.getElementsByClassName("recordedVideo");
-    for(const media of medium) {
-      media.currentTime = 0; //先頭に戻す
-      media.play();
+    for(let i=0;i<medium.length;++i) {
+      medium[i].currentTime = videoDelay[i]; //先頭に戻す
+      medium[i].play();
     }
   }
+
 </script>
 
 <br/>
@@ -145,15 +168,20 @@
   停止
 </Button>
 
-<Button id="send_file" onclick="sendSession()" disabled>
-  送信
-</Button>
+delay: <input type="number" id="session_player_delay" name="session_player[delay]" step="0.01">s
 
 <br/>
 
 <button onclick="goZero()">
   最初から再生
 </button>
+
+<br/>
+<br/>
+
+<Button id="send_file" onclick="sendSession()" disabled>
+  送信
+</Button>
 
 <br/>
 
