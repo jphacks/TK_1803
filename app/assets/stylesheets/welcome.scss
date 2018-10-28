@@ -1222,6 +1222,7 @@ table.alt tbody tr td {
 }
 
 #welcomeHeader .inner {
+  position: relative;
   -moz-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
   -webkit-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
   -ms-transition: height 0.2s ease-in-out, width 0.2s ease-in-out;
@@ -1296,10 +1297,10 @@ table.alt tbody tr td {
 
 #welcomeHeader .inner nav .menu-inner {
   position: absolute;
-  -moz-transition: opacity 0.2s ease-in-out 0.2s;
-  -webkit-transition: opacity 0.2s ease-in-out 0.2s;
-  -ms-transition: opacity 0.2s ease-in-out 0.2s;
-  transition: opacity 0.2s ease-in-out 0.2s;
+  -moz-transition: opacity 0.2s ease-in-out 0.2s, background 0.2s ease-in-out;
+  -webkit-transition: opacity 0.2s ease-in-out 0.2s, background 0.2s ease-in-out;
+  -ms-transition: opacity 0.2s ease-in-out 0.2s, background 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out 0.2s, background 0.2s ease-in-out;
   display: -moz-flex;
   display: -webkit-flex;
   display: -ms-flex;
@@ -1323,47 +1324,62 @@ table.alt tbody tr td {
   border-radius: 100%;
   width: 16em;
   height: 16em;
-  padding: 4em;
+  padding: 3em;
   text-align: center;
   box-shadow: 0 0 0 1em #FFF;
   opacity: 1;
   cursor: default;
 }
 
+#welcomeHeader .inner nav .menu-inner:hover {
+  background: #FFF;
+}
+
 #welcomeHeader .inner nav #homeMenu.menu-inner {
-  margin-left: -20em;
-  margin-top: -20em;
-  background: #1E98B9;
+  top: -7em;
+  left: -7em;
+  margin-top: -2em;
+  margin-left: -2em;
 }
 
 #welcomeHeader .inner nav #usersMenu.menu-inner {
-  margin-left: 4em;
-  margin-top: -20em;
-  background: #4B75B9;
+  top: -7em;
+  left: 11em;
+  margin-top: -2em;
+  margin-left: 2em;
 }
 
 #welcomeHeader .inner nav #videosMenu.menu-inner {
-  margin-left: -20em;
-  margin-top: 0em;
-  background: #B2CF3E;
+  top: 11em;
+  left: -7em;
+  margin-top: 2em;
+  margin-left: -2em;
 }
 
 #welcomeHeader .inner nav #sessionsMenu.menu-inner {
-  margin-left: 4em;
-  margin-top: 0em;
-  background: #E06A3B;
+  top: 11em;
+  left: 11em;
+  margin-top: 2em;
+  margin-left: 2em;
 }
 
 #welcomeHeader .inner nav #homeMenu2.menu-inner {
-  margin-left: -20em;
-  margin-top: -20em;
-  background: #1E98B9;
+  top: -7em;
+  left: -7em;
+  margin-top: -2em;
+  margin-left: -2em;
 }
 
 #welcomeHeader .inner nav #signInMenu.menu-inner {
-  margin-left: 4em;
-  margin-top: 0em;
-  background: #AA0000;
+  top: 11em;
+  left: 11em;
+  margin-top: 2em;
+  margin-left: 2em;
+  background: #A00;
+}
+
+#welcomeHeader .inner nav #signInMenu.menu-inner:hover {
+  background: #FFF;
 }
 
 #welcomeHeader.header-hide .inner nav .menu-inner {
@@ -1375,12 +1391,20 @@ table.alt tbody tr td {
   margin-top: -100em !important;
 }
 
-#welcomeHeader .inner nav .menu-inner .menu-content a h1 {
+#welcomeHeader .inner nav .menu-inner .menu-content a h1,
+#welcomeHeader .inner nav .menu-inner .menu-content a h1:before {
+  -moz-transition: color 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out;
+  -ms-transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out;
   font-size: 1.5em;
-  font-family: 'Pattaya', sans-serif;
-  margin: 0 0 0 0;
   display: block;
   color: #FFF;
+}
+
+#welcomeHeader .inner nav .menu-inner .menu-content a h1 {
+  font-family: 'Pattaya', sans-serif;
+  margin: 0 0 0 0;
 }
 
 #welcomeHeader .inner nav .menu-inner .menu-content a h1:before {
@@ -1390,9 +1414,16 @@ table.alt tbody tr td {
   font-style: normal;
   font-weight: normal;
   text-transform: none !important;
-  display: block;
-  color: #FFF;
-  font-size: 1.5em;
+}
+
+#welcomeHeader .inner nav .menu-inner:hover .menu-content a h1,
+#welcomeHeader .inner nav .menu-inner:hover .menu-content a h1:before {
+  color: #e74c3c;
+}
+
+#welcomeHeader .inner nav #signInMenu.menu-inner:hover .menu-content a h1,
+#welcomeHeader .inner nav #signInMenu.menu-inner:hover .menu-content a h1:before {
+  color: #A00;
 }
 
 #welcomeHeader .inner nav .menu-inner .menu-content a#homeBtn h1:before {
