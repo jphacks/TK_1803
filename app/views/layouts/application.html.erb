@@ -17,54 +17,54 @@
   <header id="welcomeHeader" class="header-hide">
     <div class="inner">
       <div class="content">
-        <a id="closeBtn" href="" class="button big">
+        <%= link_to "", { :id => "closeBtn", :class => "button big"} do %>
           <h1><span>CLOSE</span></h1>
-        </a>
+        <% end %>
       </div>
       <a href="" class="button header-hidden"><i class="fa fa-bars"></i></a>
       <nav>
         <% if user_signed_in? %>
         <div id="homeMenu" class="menu-inner">
           <div class="menu-content">
-            <a id="homeBtn" href="/" class="big">
+            <%= link_to "/", { :id => "homeBtn", :class => "big"} do %>
               <h1>HOME</h1>
-            </a>
+            <% end %>
           </div>
         </div>
-        <div id="usersMenu" class="menu-inner">
+        <div id="myPageMenu" class="menu-inner">
           <div class="menu-content">
-            <a id="usersBtn" href="/users" class="big">
-              <h1>USERS</h1>
-            </a>
+            <%= link_to "/users/#{current_user.id}", { :id => "myPageBtn", :class => "big"} do %>
+              <h1>MY PAGE</h1>
+            <% end %>
           </div>
         </div>
-        <div id="videosMenu" class="menu-inner">
+        <div id="newVideoMenu" class="menu-inner">
           <div class="menu-content">
-            <a id="videosBtn" href="/videos/new" class="big">
-              <h1>VIDEOS</h1>
-            </a>
+            <%= link_to "/videos/new", { :id => "newVideoBtn", :class => "big"} do %>
+              <h1>NEW VIDEO</h1>
+            <% end %>
           </div>
         </div>
         <div id="sessionsMenu" class="menu-inner">
           <div class="menu-content">
-            <a id="sessionsBtn" href="/web_sessions" class="big">
+            <%= link_to "/web_sessions", { :id => "sessionsBtn", :class => "big"} do %>
               <h1>SESSIONS</h1>
-            </a>
+            <% end %>
           </div>
         </div>
         <% else %>
-        <div id="homeMenu2" class="menu-inner">
+        <div id="homeMenu" class="menu-inner">
           <div class="menu-content">
-            <a id="homeBtn" href="/" class="big">
+            <%= link_to "/", { :id => "homeBtn", :class => "big"} do %>
               <h1>HOME</h1>
-            </a>
+            <% end %>
           </div>
         </div>
         <div id="signInMenu" class="menu-inner">
           <div class="menu-content">
-            <a id="signInBtn" href="/users/sign_in" class="big">
+            <%= link_to "/users/sign_in", { :id => "signInBtn", :class => "big"} do %>
               <h1>Sign In</h1>
-            </a>
+            <% end %>
           </div>
         </div>
         <% end %>
