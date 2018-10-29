@@ -68,3 +68,6 @@ gem 'devise'
 
 # use font-awesome
 gem 'font-awesome-rails'
+
+# aws s3
+gem 'aws-sdk-s3'

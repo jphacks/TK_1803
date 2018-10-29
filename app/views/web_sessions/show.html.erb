@@ -24,7 +24,7 @@
 </script>
 <% if @web_session.session_players.present? %>
   <% @web_session.session_players.each do |session_player| %>
-    <video class="recordedVideo" id="recordedVideo<%= session_player.session_video %>" width="200" height="150" src="<%= session_player.session_video %>"></video>
+    <video class="recordedVideo" id="recordedVideo<%= session_player.session_video %>" width="200" height="150" src="<%= url_for(session_player.session_movie) %>"></video>
   <% end %>
 <% end %>
 

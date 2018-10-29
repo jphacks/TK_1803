@@ -40,35 +40,35 @@
 
   <div class="relative3">
 
-          <% id = @user.id %>
-          <% command =  "user_id =" + id.to_s%>
-          <% commit_log = [] %>
-          <% now = Time.new %>
-          <% Video.where(command).each do |video| %>
-            <% commit_log.push(((Time.new - video.created_at)/60/60/24).floor) %>
-          <% end %>
-          <%= '<br />'.html_safe %>
+    <% id = @user.id %>
+    <% command =  "user_id =" + id.to_s%>
+    <% commit_log = [] %>
+    <% now = Time.new %>
+    <% Video.where(command).each do |video| %>
+      <% commit_log.push(((Time.new - video.created_at)/60/60/24).floor) %>
+    <% end %>
+    <%= '<br />'.html_safe %>
 
 
-        <div class="container" style="background-color:rgba(255,255,255,0.5); width: 230px; height: 180px; padding:12px" >
-          <div style="line-height:7px;font-size:5px;display:inline-block;">
-          <% for num in 0..34 do %>
-            <% if commit_log.include?(num) %>
-              <% opacity = 1 %>
-              <% if commit_log.count(num)<10%>
-                <% opacity = commit_log.count(num)/10.0 + 0.1 %>
-              <% end %>
-              <%= sprintf('<div style="height:26px; width:26px; border-radius: 2px; background-color:rgba(0,255,0,%f); display:inline-block;"></div>', opacity).html_safe %>
-            <% else %>
-              <%= '<div style="height:26px; width:26px; background-color:rgba(0,0,0,0.2); display:inline-block;"></div>'.html_safe %>
+    <div class="container" style="background-color:rgba(255,255,255,0.5); width: 230px; height: 180px; padding:12px" >
+      <div style="line-height:7px;font-size:5px;display:inline-block;">
+        <% for num in 0..34 do %>
+          <% if commit_log.include?(num) %>
+            <% opacity = 1 %>
+            <% if commit_log.count(num)<10%>
+              <% opacity = commit_log.count(num)/10.0 + 0.1 %>
             <% end %>
-            <% if num%7==6 %>
-              <%= '<br />'.html_safe %>
-            <% end %>
+            <%= sprintf('<div style="height:26px; width:26px; border-radius: 2px; background-color:rgba(0,255,0,%f); display:inline-block;"></div>', opacity).html_safe %>
+          <% else %>
+            <%= '<div style="height:26px; width:26px; background-color:rgba(0,0,0,0.2); display:inline-block;"></div>'.html_safe %>
           <% end %>
-          </div>
-          <h4> <font color="black">Contribute Callender </font></h4>
-        </div>
+          <% if num%7==6 %>
+            <%= '<br />'.html_safe %>
+          <% end %>
+        <% end %>
+      </div>
+      <h4> <font color="black">Contribute Callender </font></h4>
+    </div>
 
   </div>
 
@@ -80,9 +80,9 @@
 
   <div class="relative4">
     <div class="row">
-        <a href="" class="icon fa-twitter"></a> |
-        <a href="" class="icon fa-instagram"></a> |
-        <a href="" class="icon fa-facebook"></a>
+      <a href="" class="icon fa-twitter"></a> |
+      <a href="" class="icon fa-instagram"></a> |
+      <a href="" class="icon fa-facebook"></a>
     </div>
   </div>
 
@@ -147,17 +147,18 @@
     <% '<div class="row">' %>
   <% end %>
 
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail" >
-        <div style= "height : 445px; text-align:center; vertical-align: middle; line-height: 445px;">
-          <a href = "http://localhost:3000/videos/new">
-            <i class="fa fa-plus" style="font-size: 96px; "></i>
-          </a>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail" >
+      <div style= "height : 445px; text-align:center; vertical-align: middle; line-height: 445px;">
+        <a href = "/videos/new">
+          <i class="fa fa-plus" style="font-size: 96px; "></i>
+        </a>
       </div>
     </div>
+  </div>
 
-  <% if i%3==0 %>
-    <% '</div>' %>
-  <% end %>
+    <% if i%3==0 %>
+      <% '</div>' %>
+    <% end %>
 
- <% end %>
+<% end %>
