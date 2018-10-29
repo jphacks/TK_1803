@@ -4,5 +4,4 @@ class Video < ApplicationRecord
   validates :user, {presence: true}
   validates :instrument, {presence: true}
   validates :url, {presence: true}
-  validates :score, {presence: true}
 end

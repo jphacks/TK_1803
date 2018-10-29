@@ -9,6 +9,7 @@
     <tr>
       <th>Name</th>
       <th>Introduction</th>
+      <th>Email</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
       <tr>
         <td><%= user.name %></td>
         <td><%= user.introduction %></td>
+        <td><%= user.email %></td>
         <td><%= link_to 'Show', user %></td>
         <% id = user.id %>
         <% if id == @user_id %>
