@@ -10,17 +10,13 @@
   <input type="text" id="session_player_instrument" name="session_player[instrument]">
 </div>
 
-<% if @session_player.session_video.present? %>
-  <video id="myVideo" width="400" height="300" autoplay src="<%= @session_player.session_video %>"></video>
-<% else %>
-  <video id="myVideo" width="400" height="300" autoplay ></video>
-<% end %>
+<video id="myVideo" width="400" height="300" autoplay ></video>
 
 <br />
 
 <% if @web_session.session_players.present? %>
   <% @web_session.session_players.each_with_index do |session_player, i| %>
-    <video class="recordedVideo" id="recordedVideo-<%= i %>" width="200" height="150" src="<%= session_player.session_video %>"></video>
+    <video class="recordedVideo" id="recordedVideo-<%= i %>" width="200" height="150" src="<%= url_for(session_player.session_movie) %>"></video>
   <% end %>
 <% end %>
 
@@ -82,13 +78,13 @@
   // 動画を送信
   function sendSession() {
     const formdata = new FormData();
-    formdata.append('session_player[video_file]', videoBlob);
+    formdata.append('session_player[session_movie]', videoBlob);
     formdata.append('session_player[user_id]', <%= @session_player.user_id %>);
     formdata.append('session_player[web_session_id]', <%= @session_player.web_session_id %>);
     formdata.append('session_player[instrument]', document.getElementById('session_player_instrument').value);
     formdata.append('session_player[delay]', document.getElementById('session_player_delay').value);
     $.ajax({
-      url: '/session_players/upload.json',
+      url: '/session_players.json',
       type: 'POST',
       headers: {
         'X-CSRF-Token': document.getElementsByName('csrf-token')[0].getAttribute('content'),
