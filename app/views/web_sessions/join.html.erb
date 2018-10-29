@@ -31,16 +31,24 @@
   window.URL = window.URL || window.webkitURL;
 
   const video = document.getElementById('myVideo');
+  video.onended = () => {
+    console.timeEnd('video');
+  };
 
   let recorder = null;
   let blobUrl = null;
   let videoBlob = null;
+
+  let start_ms;
+  let duration;
 
   function startRecording() {
     // 録音している音はミュートに
     video.muted = true;
     navigator.getUserMedia({video: true, audio: true},
       function(stream) { // for success case
+        start_ms = new Date().getTime();
+        startRestVideos();
         video.src = window.URL.createObjectURL(stream);
         recorder = new MediaRecorder(stream, {mimeType: 'video/webm'});
 
@@ -60,9 +68,9 @@
           button.removeAttribute('disabled');
         };
 
-        recorder.onstart = function(evt) {
-          // 再生
-          startRestVideos();
+
+        recorder.onstop = function(evt) {
+          duration = new Date().getTime() - start_ms;
         };
 
         // 録画開始
@@ -121,11 +129,17 @@
   // 最初から再生
   function goZero()
   {
+    console.log(video.currentTime);
     const medium = document.getElementsByClassName("recordedVideo");
     if(blobUrl !== null) {
       let delay;
       if(document.getElementById('session_player_delay').value===""){
-        delay = 0;
+        if(document.getElementsByClassName('recordedVideo').length > 0) {
+          delay = Math.round(duration - video.currentTime * 1000) / 1000;
+          document.getElementById('session_player_delay').value = String(delay);
+        } else {
+          delay = 0;
+        }
       } else {
         delay = parseFloat(document.getElementById('session_player_delay').value);
       }
@@ -135,6 +149,7 @@
       console.log(delay);
       video.currentTime = delay;
       video.play();
+      console.time('video');
     }
     for(let i=0;i<medium.length;++i) {
       medium[i].currentTime = videoDelay[i]; //先頭に戻す
@@ -164,7 +179,7 @@
   停止
 </Button>
 
-delay: <input type="number" id="session_player_delay" name="session_player[delay]" step="0.01">s
+delay: <input type="number" id="session_player_delay" name="session_player[delay]" step="0.001">s
 
 <br/>
 
